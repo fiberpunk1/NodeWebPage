@@ -5,7 +5,7 @@ This web page runs inside Node. It is a lightweight web application that can dis
 
 Since the web page storage space of ESP32 is very limited, there are very few js libraries that Node web pages can use.
 
-![img](./imgs/pc-page.png)
+![img](./imgs/NodeWebUINew.png)
 
 
 # Development Resources

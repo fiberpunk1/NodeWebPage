@@ -22,6 +22,16 @@ function isTextFile(path) {
 }
 
 var b_printing= false;
+var str_upload_file = "";
+
+function updateUserBtn(){
+  var tt_url = '/getfmdname';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+  console.log("test send btn");
+};
+
 
 function createTreeLeaf(path, name, size) {
   var td = document.createElement('td');
@@ -125,6 +135,7 @@ function httpGet(parent, path) {
       //clear loading
       if (xmlHttp.status == 200)
         addList(parent, path, JSON.parse(xmlHttp.responseText));
+        console.log(xmlHttp.responseText);
     }
     if (
       resp.startsWith('NO') ||
@@ -194,6 +205,9 @@ mountButton.onclick = () => {
 function uploadComplete(evt) {
   var progressBar = document.getElementById('progressbar');
   progressBar.value = 0;
+  document.getElementById('probar').style.display="none";
+  // document.getElementById('file_msg').style.display="block";
+  document.getElementById('file_msg').innerHTML=str_upload_file;
   alert('Upload finish!');
   creatTree();
 }
@@ -223,6 +237,9 @@ uploadButton.onclick = () => {
   if (input.files.length === 0) {
     return;
   }
+  document.getElementById('probar').style.display="block";
+  str_upload_file = input.files[0].name;
+  document.getElementById('file_msg').innerHTML=" ";
   var fileListM = document.getElementById('file-list-frame');
   while (fileListM.hasChildNodes()) {
     fileListM.removeChild(fileListM.lastChild);
@@ -233,8 +250,14 @@ uploadButton.onclick = () => {
   xmlHttp.onerror = uploadFailed;
   xmlHttp.upload.onprogress = progressFunction;
   var formData = new FormData();
+  var savePath = '';
   var random_start = makeid(3);
-  var savePath = '/' + random_start + '-' + input.files[0].name;
+  if(input.files[0].name.endsWith('gcode'))  {
+    savePath = '/' + random_start + '-' + input.files[0].name;
+  }
+  else{
+    savePath = '/' + input.files[0].name;
+  }
   formData.append('data', input.files[0], savePath);
   xmlHttp.open('POST', '/edit');
   xmlHttp.send(formData);
@@ -248,6 +271,15 @@ const sendCleardButton = document.getElementById('btn-send-clear');
 const copySelectButton = document.getElementById('btn-sel-copy');
 const autoCheckButton = document.getElementById('btn-auto-check');
 const sendGcdoeInput = document.getElementById('gcode-lineedit');
+
+const user1 = document.getElementById('user-1');
+const user2 = document.getElementById('user-2');
+const user3 = document.getElementById('user-3');
+
+const muser1 = document.getElementById('muser-1');
+const muser2 = document.getElementById('muser-2');
+const muser3 = document.getElementById('muser-3');
+
 
 sendGcodedButton.onclick = () => {
   var cmdLineEdit = document.getElementById('gcode-lineedit');
@@ -282,8 +314,6 @@ document.getElementById("btn-sel-copy").addEventListener("click", function (e) {
 }, false);  
 
 
-
-
 //enter button
 sendGcdoeInput.onkeydown = function (e) {
   if (e.keyCode == 13) {
@@ -295,6 +325,57 @@ sendGcdoeInput.onkeydown = function (e) {
   }
 };
 
+user1.onclick = () => {
+  var tt_url = '/user1';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+  console.log("user1 button");
+};
+
+user2.onclick = () => {
+  var tt_url = '/user2';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+  console.log("user2 button");
+};
+
+user3.onclick = () => {
+  var tt_url = '/user3';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+  console.log("user3 button");
+};
+
+muser1.onclick = () => {
+  var tt_url = '/user1';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+  console.log("user1 button");
+};
+
+muser2.onclick = () => {
+  var tt_url = '/user2';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+  console.log("user2 button");
+};
+
+muser3.onclick = () => {
+  var tt_url = '/user3';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+  console.log("user3 button");
+};
+
+
+
+
 var source = new EventSource('/events');
 source.addEventListener(
   'gcode_cli',
@@ -302,9 +383,37 @@ source.addEventListener(
     //console.log("gyro_readings", e.data);
     var obj = e.data;
     var scrollText = document.getElementById('serial-console');
-    obj += '\r\n';
-    scrollText.value += obj;
-    scrollText.scrollTop = scrollText.scrollHeight;
+    var show_msg = true;
+    if(obj.startsWith('##')&&obj.endsWith('&&'))
+    {
+      var user1 = document.getElementById('user-1');
+      var user2 = document.getElementById('user-2');
+      var user3 = document.getElementById('user-3');
+      // var user4 = document.getElementById('user-4');
+      var users = new Array();
+      users[0]=user1;
+      users[1]=user2;
+      users[2]=user3;
+      // users[3]=user4;
+      var muser1 = document.getElementById('muser-1');
+      var muser2 = document.getElementById('muser-2');
+      var muser3 = document.getElementById('muser-3');
+      // var user4 = document.getElementById('user-4');
+      var musers = new Array();
+      musers[0]=muser1;
+      musers[1]=muser2;
+      musers[2]=muser3;
+
+      var str_sub = obj.slice(2, -2).split(';');
+      var ary_len = str_sub.length;
+      for(var i=0; i<3;i++){
+        if(str_sub[i].startsWith('/fmd')&&str_sub[i].endsWith('txt')){
+          users[i].innerHTML = str_sub[i].slice(5,-6);
+          musers[i].innerHTML = str_sub[i].slice(5,-6);
+        }
+      }
+      // console.log(str_sub);
+    }
 
     //get file name, progress and tempture
     var reg_t = /T:([0-9]*\.[0-9]*) *\/([0-9]*\.[0-9]*)/g;
@@ -316,6 +425,16 @@ source.addEventListener(
     var reg_short_low = /:([\S\s]*).gco/g;
     var reg_end = /Finish/g;
 
+    var reg_chip=/Start @/g
+
+    var b_start = obj.match(reg_chip);
+    if(b_start){
+      //setTimeout for update fmd button
+      setTimeout(updateUserBtn,1000);
+    }
+
+    var checktempture = document.getElementById('easymode').checked;
+
     var heater = obj.match(reg_t);
     if (heater) {
       var header_tmp = RegExp.$1;
@@ -323,6 +442,11 @@ source.addEventListener(
       var display_header = header_tmp + '/' + header_targ;
       var header_ele = document.getElementById('hothead-display');
       header_ele.innerHTML = display_header;
+      if(checktempture){
+        show_msg = false;
+        console.log("not show the tempture");
+        console.log(checktempture);
+      }
     }
 
     var beder = obj.match(reg_b);
@@ -332,6 +456,10 @@ source.addEventListener(
       var display_bed = beder_tmp + '/' + beder_targ;
       var bed_ele = document.getElementById('hotbed-display');
       bed_ele.innerHTML = display_bed;
+      if(checktempture){
+        show_msg = false;
+      }
+        
     }
 
     var prog = obj.match(reg_p);
@@ -341,25 +469,34 @@ source.addEventListener(
       var percent = Math.round((current_line / total_lines) * 100);
       var percent_ele = document.getElementById('print-progess');
       percent_ele.innerHTML = percent.toString();
+	  if(checktempture){
+        show_msg = false;
+      }
     }
 
     var print_file = obj.match(reg_f);
     if (print_file) {
       var printFileElement = document.getElementById('print-file');
       printFileElement.innerHTML = RegExp.$1 + '.GCO';
+	  if(checktempture){
+        show_msg = false;
+      }
     }
 
     var print_ful_name = obj.match(reg_af);
     if (print_ful_name) {
         var printFileElement = document.getElementById('print-file');
         printFileElement.innerHTML = RegExp.$2 + '.gcode';
+		if(checktempture){
+        show_msg = false;
+      }
     }
 
     if(obj.includes("no file")){
 
       if(b_printing)
       {
-        var tt_url = '/operate?op=CANCEL';
+        var tt_url = '/operate?op=CANCLE';
         xmlHttp = new XMLHttpRequest();
         xmlHttp.open('GET', tt_url);
         xmlHttp.send();
@@ -372,8 +509,7 @@ source.addEventListener(
         b_printing = false;
       }
 
-    }
-      
+    } 
 
     var print_prusa_short = obj.match(reg_short_low);
     if (print_prusa_short) {
@@ -396,6 +532,15 @@ source.addEventListener(
       printFileElement.innerHTML = 'no file';
       alert('Print job finish!');
     }
+
+
+    if(show_msg){
+      obj += '\r\n';
+      scrollText.value += obj;
+      scrollText.scrollTop = scrollText.scrollHeight;
+    }
+
+
   },
   false
 );
@@ -458,6 +603,8 @@ const hzButton = document.getElementById('home-z');
 
 const setHeadButton = document.getElementById('set-head');
 const setBedButton = document.getElementById('set-bed');
+const setHeadLineedit = document.getElementById('temp-head');
+const setBedLineedit = document.getElementById('temp-bed');
 
 const pauseButton = document.getElementById('btn-pause');
 const cancelButton = document.getElementById('btn-cancel');
@@ -465,6 +612,10 @@ const restartButton = document.getElementById('btn-restart');
 const resethostButton = document.getElementById('btn-resethost');
 const setSPIButton = document.getElementById('btn-setspi');
 const setSDIOButton = document.getElementById('btn-setsdio');
+
+const mresethostButton = document.getElementById('mbtn-resethost');
+const msetSPIButton = document.getElementById('mbtn-setspi');
+const msetSDIOButton = document.getElementById('mbtn-setsdio');
 
 xpButton.onclick = () => {
   var step = getRadioValue();
@@ -564,6 +715,24 @@ setBedButton.onclick = () => {
   sendGcode(cmd);
 };
 
+// setHeadLineedit.onclick
+// setBedLineedit = document.getElementById('temp-bed');
+setHeadLineedit.onkeydown = function (e) {
+  if (e.keyCode == 13) {
+    var target_head = document.getElementById('temp-head').value;
+    var cmd = 'M104 S' + target_head;
+    sendGcode(cmd);
+  }
+};
+
+setBedLineedit.onkeydown = function (e) {
+  if (e.keyCode == 13) {
+    var target_bed = document.getElementById('temp-bed').value;
+    var cmd = 'M140 S' + target_bed;
+    sendGcode(cmd);
+  }
+};
+
 pauseButton.onclick = () => {
   var tt_url = '/operate?op=PAUSE';
   xmlHttp = new XMLHttpRequest();
@@ -571,7 +740,7 @@ pauseButton.onclick = () => {
   xmlHttp.send();
 };
 cancelButton.onclick = () => {
-  var tt_url = '/operate?op=CANCEL';
+  var tt_url = '/operate?op=CANCLE';
   xmlHttp = new XMLHttpRequest();
   xmlHttp.open('GET', tt_url);
   xmlHttp.send();
@@ -617,7 +786,32 @@ setSDIOButton.onclick = () => {
   xmlHttp.send();
 };
 
+mresethostButton.onclick = () => {
+  var tt_url = '/resetusb';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+};
 
+msetSPIButton.onclick = () => {
+  alert(
+    'After switching the SD data reading method, please must repower your Node and 3D printer.'
+  );
+  var tt_url = '/setsdtype?type=SPI';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+};
+
+msetSDIOButton.onclick = () => {
+  alert(
+    'After switching the SD data reading method, please must repower your Node and 3D printer.'
+  );
+  var tt_url = '/setsdtype?type=SDIO';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+};
 
 autoCheckButton.onclick = () => {
   // auto check step
@@ -636,7 +830,11 @@ autoCheckButton.onclick = () => {
   sendUrlRequest('/operate?op=RELEASESD', 300);
   sendGcode('M20\n');
   sendUrlRequest('/operate?op=GETSD', 300);
-
 };
+
+
+
+
+
 
 
