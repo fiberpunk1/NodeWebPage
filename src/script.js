@@ -87,7 +87,13 @@ function addList(parent, path, items) {
               resp.startsWith('SD') ||
               resp.startsWith('PRINTER')
             ) {
-              alert(resp);
+                if(resp.startsWith('NOT DIR')){
+                  alert("Node init SD card failed, please click 'Mount SD' and update filelist again");
+                }else if(resp.startsWith('PRINTER BUSY')){
+                  alert("Printer is printing, or not finish job normally, click 'Cancel' can get printer again.");
+                }else{
+                  alert(resp);
+                }
             }
           };
           var short_name = '/' + convertToShortName(this.className);
@@ -115,7 +121,13 @@ function addList(parent, path, items) {
               resp.startsWith('SD') ||
               resp.startsWith('PRINTER')
             ) {
-              alert(resp);
+              if(resp.startsWith('NOT DIR')){
+                alert("Node init SD card failed, please click 'Mount SD' and update filelist again");
+              }else if(resp.startsWith('PRINTER BUSY')){
+                alert("Printer is printing, or not finish job normally, click 'Cancel' can get printer again.");
+              }else{
+                alert(resp);
+              }
             }
           };
           xmlHttp.open('GET', '/remove?path=' + this.className, true);
@@ -142,7 +154,14 @@ function httpGet(parent, path) {
       resp.startsWith('SD') ||
       resp.startsWith('PRINTER')
     ) {
-      alert(resp);
+        if(resp.startsWith('NOT DIR')){
+          alert("Node init SD card failed, please click 'Mount SD' and update filelist again");
+        }else if(resp.startsWith('PRINTER BUSY')){
+          alert("Printer is printing, or not finish job normally, click 'Cancel' can get printer again.");
+        }else{
+          alert(resp);
+        }
+      
     }
   };
   xmlHttp.open('GET', '/list?dir=' + path, true);
@@ -178,7 +197,13 @@ unmountButton.onclick = () => {
       resp.startsWith('SD') ||
       resp.startsWith('PRINTER')
     ) {
-      alert(resp);
+      if(resp.startsWith('NOT DIR')){
+        alert("Node init SD card failed, please click 'Mount SD' and update filelist again");
+      }else if(resp.startsWith('PRINTER BUSY')){
+        alert("Printer is printing, or not finish job normally, click 'Cancel' can get printer again.");
+      }else{
+        alert(resp);
+      }
     }
   };
   xmlHttp.open('GET', tt_url);
@@ -195,7 +220,13 @@ mountButton.onclick = () => {
       resp.startsWith('SD') ||
       resp.startsWith('PRINTER')
     ) {
-      alert(resp);
+      if(resp.startsWith('NOT DIR')){
+        alert("Node init SD card failed, please click 'Mount SD' and update filelist again");
+      }else if(resp.startsWith('PRINTER BUSY')){
+        alert("Printer is printing, or not finish job normally, click 'Cancel' can get printer again.");
+      }else{
+        alert(resp);
+      }
     }
   };
   xmlHttp.open('GET', tt_url);
@@ -293,7 +324,13 @@ sendGcodedButton.onclick = () => {
       resp.startsWith('SD') ||
       resp.startsWith('PRINTER')
     ) {
-      alert(resp);
+      if(resp.startsWith('NOT DIR')){
+        alert("Node init SD card failed, please click 'Mount SD' and update filelist again");
+      }else if(resp.startsWith('PRINTER BUSY')){
+        alert("Printer is printing, or not finish job normally, click 'Cancel' can get printer again.");
+      }else{
+        alert(resp);
+      }
     }
   };
   xmlHttp.open('GET', tt_url);
