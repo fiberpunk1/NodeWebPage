@@ -197,9 +197,7 @@ unmountButton.onclick = () => {
       resp.startsWith('SD') ||
       resp.startsWith('PRINTER')
     ) {
-      if(resp.startsWith('NOT DIR')){
-        alert("Node init SD card failed, please click 'Mount SD' and update filelist again");
-      }else if(resp.startsWith('PRINTER BUSY')){
+      if(resp.startsWith('PRINTER BUSY')){
         alert("Printer is printing, or not finish job normally, click 'Cancel' can get printer again.");
       }else{
         alert(resp);
@@ -464,6 +462,12 @@ source.addEventListener(
 
     var reg_chip=/Start @/g
 
+    // refer marlin language.h  STR_SD_XXX
+    var reg_sd_err_init = /No SD card/g;
+    var reg_sd_err_subdir = /Cannot open subdir/g;
+    var reg_sd_err_volinit = /volume.init failed/g;
+    var reg_sd_err_root = /openRoot failed/g;
+
     var b_start = obj.match(reg_chip);
     if(b_start){
       //setTimeout for update fmd button
@@ -529,6 +533,25 @@ source.addEventListener(
       }
     }
 
+    // process SD card error
+    if(b_printing)
+    {
+      if(obj.match(reg_sd_err_init) || obj.match(reg_sd_err_subdir) ||obj.match(reg_sd_err_volinit) ||obj.match(reg_sd_err_root) )
+      {
+        alert('Printer init SD card failed! Can not start printing.');
+        var tt_url = '/operate?op=CANCLE';
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open('GET', tt_url);
+        xmlHttp.send();
+      
+        var percent_ele = document.getElementById('print-progess');
+        var printFileElement = document.getElementById('print-file');
+        percent_ele.innerHTML = 0;
+        printFileElement.innerHTML = 'no file';
+        b_printing = false;
+      }
+    }
+
     if(obj.includes("no file")){
 
       if(b_printing)
@@ -542,7 +565,7 @@ source.addEventListener(
         var printFileElement = document.getElementById('print-file');
         percent_ele.innerHTML = 0;
         printFileElement.innerHTML = 'no file';
-        alert('Printer init SD card failed! Can not start printing.');
+       
         b_printing = false;
       }
 
