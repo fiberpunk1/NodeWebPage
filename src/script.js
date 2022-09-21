@@ -32,13 +32,39 @@ function updateUserBtn(){
   console.log("test send btn");
 };
 
+function formatFileSize(fileSize) {
+  if (fileSize < 1024) {
+      return fileSize + 'B';
+  } else if (fileSize < (1024*1024)) {
+      var temp = fileSize / 1024;
+      temp = temp.toFixed(2);
+      return temp + 'KB';
+  } else if (fileSize < (1024*1024*1024)) {
+      var temp = fileSize / (1024*1024);
+      temp = temp.toFixed(2);
+      return temp + 'MB';
+  } else {
+      var temp = fileSize / (1024*1024*1024);
+      temp = temp.toFixed(2);
+      return temp + 'GB';
+  }
+}
 
 function createTreeLeaf(path, name, size) {
   var td = document.createElement('td');
   td.id = ((path == '/' ? '' : path) + '/' + name).toLowerCase();
-  td.innerHTML = name.toLowerCase();
+  // td.innerHTML = name.toLowerCase();
+  td.innerHTML = name;
   return td;
 }
+
+function createSizeTd(path, name, size) {
+  var td = document.createElement('td');
+  td.id = ((path == '/' ? '' : path) + '/' + name + '_size').toLowerCase();
+  td.innerHTML = formatFileSize(Number(size))
+  return td;
+}
+
 function convertToShortName(fullName) {
   var f_name = fullName.replace('/', '');
   var base_name = f_name.replace(/\.[^/.]+$/, '');
@@ -74,6 +100,10 @@ function addList(parent, path, items) {
         itemEl = createTreeLeaf(path, item.name, item.size);
         console.log(item.name);
         list.appendChild(itemEl);
+
+        itemSize = createSizeTd(path, item.name, item.size);
+        list.append(itemSize);
+
         var td_print = document.createElement('td');
         td_print.innerHTML =
           "<button class='btn btn-default btn-xs' type='button'><span class='glyphicon glyphicon-print' aria-hidden='true'></span>print</button>";
@@ -147,6 +177,7 @@ function httpGet(parent, path) {
       //clear loading
       if (xmlHttp.status == 200)
         addList(parent, path, JSON.parse(xmlHttp.responseText));
+        console.log("Get respon of path:");
         console.log(xmlHttp.responseText);
     }
     if (
