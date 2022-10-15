@@ -12,7 +12,7 @@
 				<img src="logo_03.png">
 				<br>
 				<label>
-						<span>node-webpage-2022-9-21-2006.2</span>
+						<span>node-webpage-2022-9-29-2007.3</span>
 				</label>
 			</div>
 		</div>
@@ -302,14 +302,15 @@
 					</form>
 					<div class="form-inline">
 					<div class="form-group">
+					
 						<form method="POST" class="form form1" action="/edit" enctype="multipart/form-data">
-							<input type="file" class="file" name="data" id="choose-file" >
-							<div class="file-b">
-								<button type="button" class="btn btn-default" >
-								Choose File
+							<button type="button" class="btn btn-default" id="choose-btn">
+									Choose File
 							</button>
-							<div class="importBtn im" id="file_msg">Not Choose file</div>
-						</div>
+							<input type="file" class="file" name="data" id="choose-file" >
+							 <div class="file-b">
+									<div class="importBtn im" id="file_msg">Not Choose file</div>
+								</div>
 							<!-- 父级元素 -->
 							
 							<!-- 进度条 -->
@@ -330,12 +331,13 @@
 									
 							
 							<div class="file-b">
-							
-							<button type="button"  class="btn btn-default" id="upload-file">
-								<span onClick="processerbar(3000)">Upload</span>
-							</button>
-							<div class="im" style="opacity: 0;">1</div>
+								
+								<button type="button"  class="btn btn-default" id="upload-file">
+									<span onClick="processerbar(3000)">Upload</span>
+								</button>
+								<div class="im" style="opacity: 0;">1</div>
 							</div>
+
 						</form>
 					</div>
 					</div>
@@ -350,32 +352,27 @@
 							width: a+"%"
 						},time);
 					});
-				  //  var si = window.setInterval(
-					// function(){
-					// 	a=$("#line").width();
-					// 	b=(a/200.0*100.0).toFixed(0);
-					// 	// document.getElementById('percent').innerHTML=b+"%";
-					// 	// document.getElementById('percent').style.left=a-12+"px";
-					// 	// document.getElementById('msg').innerHTML="Uploading...";
-					// 	if(document.getElementById('percent').innerHTML=="100%") {
-					// 		clearInterval(si);
-					// 		document.getElementById('msg').innerHTML="&nbsp;&nbsp;Successful";
-					// 	}
-					// },70);
 				};
 				</script>
 				<script>
+					// document.getElementById('choose-btn').onclick = () => {
+					// 	console.log("in choose file btn event");
+					//   let f = (document.getElementById('choose-file').files[0] && document.getElementById('choose-file').files[0].name)
+					// 				if(f.length>0){
+					// 					$('.importBtn').text(f)
+					// 				}else{
+					// 					alert("Not choose any file!");
+					// 				}
+					// }
+					
 					  $('#choose-file').bind('input propertychange', function () {
-					 
-					  let f = document.getElementById('choose-file').files[0].name
-					      /* let f = document.getElementById('choose-file').files;
-					       let [fileName, fileSize, fileType] = [f[0].name, f[0].size, f[0].type]; */
-					                                      /*分别获取   文件名   文件大小   文件类型*/
-					 
-					       /* $('.importBtn').hide(); */
-					      
-					        $('.importBtn').text(f)
-					    
+					    console.log("choose propertychange!");
+							let f = (document.getElementById('choose-file').files[0] && document.getElementById('choose-file').files[0].name)
+									if(f.length>0){
+										$('.importBtn').text(f)
+									}else{
+										alert("Not choose any file!");
+									}
 					   })
 				</script>
 			</div>

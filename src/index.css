@@ -269,6 +269,11 @@ label,input[type="file"]{
 	left: 0;
 	top: 0;
 	opacity: 0;
+	min-height: 36px;
+	z-index: 100;
+}
+#choose-btn{
+	z-index: 99;
 }
 .file-b .im{
 	color: #666;
