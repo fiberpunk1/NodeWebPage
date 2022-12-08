@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
+	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<link rel="stylesheet" type="text/css" href="bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="index.css" />
+	<link rel="stylesheet" type="text/css" href="bootstrap.css" rel="stylesheet">/>
+	<link rel="stylesheet" type="text/css" href="index.css" rel="stylesheet">/>
 	<script src="jquery.min.js"></script>
 </head>
-<html lang="en">
+
 	<body>
 		<div class="logo1">
 			<div class="container-fluid">
@@ -342,40 +344,7 @@
 					</div>
 					</div>
 				</div>
-				<script language="javascript">
-				function processerbar(time){
-					document.getElementById('probar').style.display="block";
-					
-					$("#line").each(function(i,item){
-						var a=parseInt($(item).attr("w"));
-						$(item).animate({
-							width: a+"%"
-						},time);
-					});
-				};
-				</script>
-				<script>
-					// document.getElementById('choose-btn').onclick = () => {
-					// 	console.log("in choose file btn event");
-					//   let f = (document.getElementById('choose-file').files[0] && document.getElementById('choose-file').files[0].name)
-					// 				if(f.length>0){
-					// 					$('.importBtn').text(f)
-					// 				}else{
-					// 					alert("Not choose any file!");
-					// 				}
-					// }
-					
-					  $('#choose-file').bind('input propertychange', function () {
-					    console.log("choose propertychange!");
-							let f = (document.getElementById('choose-file').files[0] && document.getElementById('choose-file').files[0].name)
-									if(f.length>0){
-										$('.importBtn').text(f)
-									}else{
-										alert("Not choose any file!");
-									}
-					   })
-				</script>
-			</div>
+							</div>
 
 			<div class="m-c m-c2">
 				<div class="l-l">
@@ -502,8 +471,41 @@
 			</div>
 		</div>
 
-
+	<script language="javascript">
+				function processerbar(time){
+					document.getElementById('probar').style.display="block";
+					
+					$("#line").each(function(i,item){
+						var a=parseInt($(item).attr("w"));
+						$(item).animate({
+							width: a+"%"
+						},time);
+					});
+				};
+				</script>
+				<script>
+					// document.getElementById('choose-btn').onclick = () => {
+					// 	console.log("in choose file btn event");
+					//   let f = (document.getElementById('choose-file').files[0] && document.getElementById('choose-file').files[0].name)
+					// 				if(f.length>0){
+					// 					$('.importBtn').text(f)
+					// 				}else{
+					// 					alert("Not choose any file!");
+					// 				}
+					// }
+					
+					  $('#choose-file').bind('input propertychange', function () {
+					    console.log("choose propertychange!");
+							let f = (document.getElementById('choose-file').files[0] && document.getElementById('choose-file').files[0].name)
+									if(f.length>0){
+										$('.importBtn').text(f)
+									}else{
+										alert("Not choose any file!");
+									}
+					   })
+				</script>
+	<script src="script.js"></script>
 
 	</body>
-	<script src="script.js"></script>
+
 </html>
