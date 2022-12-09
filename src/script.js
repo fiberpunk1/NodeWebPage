@@ -1,3 +1,19 @@
+//This function allows us to get data between to strings of text for easier handling of data
+function between_text(txt_to_search, start_tag, end_tag) {
+  var start_index = txt_to_search.indexOf(start_tag);
+  if (start_index > -1) {
+    start_index += start_tag.length;
+    var end_index = txt_to_search.indexOf(end_tag, start_index);
+    if (end_index > -1) {
+      return txt_to_search.substr(start_index, end_index - start_index);
+    } else {
+      return "";
+    }
+  } else {
+    return "";
+  }
+}
+
 /******
  * file upload and list
  */
@@ -29,7 +45,7 @@ function updateUserBtn(){
   xmlHttp = new XMLHttpRequest();
   xmlHttp.open('GET', tt_url);
   xmlHttp.send();
-  console.log("test send btn");
+  //console.log("test send btn"); Commented out due to not making any sense to have this
 };
 
 function formatFileSize(fileSize) {
@@ -613,6 +629,23 @@ source.addEventListener(
       var printFileElement = document.getElementById('print-file');
       printFileElement.innerHTML = RegExp.$1 + '.gcode';
     }
+
+
+    //Specific to leveraging Prusa specfici M37 Gcode that returns percentage back
+    var pruse_m37_result = obj.includes("NORMAL MODE");
+    if (pruse_m37_result) {
+      var currentprusaPercent = between_text(nodeobj, "Percent done: ", ";");
+      var percent_update = document.getElementById("print-progess");
+      percent_update.innerHTML = currentprusaPercent.toString();
+      if (currentprusaPercent.toString() === "100") {
+        alert("Print job finish!");
+      }
+    }
+
+
+
+
+
 
     var b_finish = obj.match(reg_end);
     var b_done = obj.match(/Done/g);
