@@ -1,33 +1,29 @@
 
 //Use a modal instead of an alert
-function showModal(modalTitle,modalDetail){
-  var myModalLabel = document.getElementById('myModalLabel'); 
-  var myModalbody = document.getElementById('myModalbody'); 
+function showModal (modalTitle, modalDetail) {
+  var myModalLabel = document.getElementById('myModalLabel')
+  var myModalbody = document.getElementById('myModalbody')
   myModalLabel.innerHTML = modalTitle
   myModalbody.innerHTML = modalDetail
   $('#myModal').modal()
 }
 
-
-
-
-
-
 //This function allows us to get data between to strings of text for easier handling of data
-function between_text(txt_to_search, start_tag, end_tag) {
-  var start_index = txt_to_search.indexOf(start_tag);
+function between_text (txt_to_search, start_tag, end_tag) {
+  var start_index = txt_to_search.indexOf(start_tag)
   if (start_index > -1) {
-    start_index += start_tag.length;
-    var end_index = txt_to_search.indexOf(end_tag, start_index);
+    start_index += start_tag.length
+    var end_index = txt_to_search.indexOf(end_tag, start_index)
     if (end_index > -1) {
-      return txt_to_search.substr(start_index, end_index - start_index);
+      return txt_to_search.substr(start_index, end_index - start_index)
     } else {
-      return "";
+      return ''
     }
   } else {
-    return "";
+    return ''
   }
 }
+
 
 /******
  * file upload and list
@@ -756,6 +752,9 @@ const mresethostButton = document.getElementById('mbtn-resethost');
 const msetSPIButton = document.getElementById('mbtn-setspi');
 const msetSDIOButton = document.getElementById('mbtn-setsdio');
 
+const findDeviceButton = document.getElementById('mbtn-findDevice');
+
+
 xpButton.onclick = () => {
   var step = getRadioValue();
   x_pos += parseFloat(step);
@@ -962,6 +961,27 @@ autoCheckButton.onclick = () => {
   sendGcode('M20\n');
   sendUrlRequest('/operate?op=GETSD', 300);
 };
+
+
+
+findDeviceButton.onclick = () => {
+  var tt_url = '/find'
+  xmlHttp = new XMLHttpRequest()
+  xmlHttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      showModal(
+        'Found Node Devices',
+        '<p>The Following Node Devices have been found:</p><p>' +
+          this.responseText.replace(/Beam:/g, '').replace(/:PRINTING:/g, '') +
+          '</p>'
+      )
+    }
+  }
+  xmlHttp.open('GET', tt_url)
+  xmlHttp.send()
+}
+
+
 
 
 
