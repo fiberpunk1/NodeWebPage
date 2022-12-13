@@ -352,7 +352,8 @@
 									  Copy </a> 
                             <button type="button" class="btn btn-default" id="btn-auto-check" title="send M115 and auto mount SD ,unmount SD to check Node's core cunction"> 
                                 Auto Check
-</button>                             
+</button>
+                            <button type="button" class="btn btn-default hidden" id="mbtn-prusa-disablereset" title="send ;C32u2_RMD command to turn off the Prusa setting to restart when USB is connected">Disable Prusa Reset when USB Connected</button>                             
                         </div>                         
                     </div>                     
                     <div class="row"> 
@@ -376,8 +377,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                         </button>
                         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                     </div>
