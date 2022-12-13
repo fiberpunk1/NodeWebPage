@@ -771,7 +771,9 @@ const msetSPIButton = document.getElementById('mbtn-setspi');
 const msetSDIOButton = document.getElementById('mbtn-setsdio');
 
 const findDeviceButton = document.getElementById('mbtn-findDevice');
-const cancelPrusaUSBButton = document.getElementById('mbtn-prusa-disablereset');
+const selectPrusaUSBButton = document.getElementById('mbtn-prusa-disablereset');
+const enablePrusaUSB = document.getElementById('mbtn-enablePrusaUSB');
+const disablePrusaUSB = document.getElementById('mbtn-disablePrusaUSB');
 
 
 xpButton.onclick = () => {
@@ -982,13 +984,19 @@ autoCheckButton.onclick = () => {
 };
 
 
-cancelPrusaUSBButton.onclick = () => {
-  
-  var cmd = ';C32u2_RMD';
-  sendGcode(cmd);
+selectPrusaUSBButton.onclick = () => {
+  $('#prusaModal').modal()
+}
 
-};
+enablePrusaUSB.onclick = () => {
+  var cmd = ';C32u2_RME'
+  sendGcode(cmd)
+}
 
+disablePrusaUSB.onclick = () => {
+  var cmd = ';C32u2_RMD'
+  sendGcode(cmd)
+}
 
 
 findDeviceButton.onclick = () => {
