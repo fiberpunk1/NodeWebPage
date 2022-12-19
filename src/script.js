@@ -25,6 +25,17 @@ function between_text (txt_to_search, start_tag, end_tag) {
 }
 
 
+function check_if_prusa_MK(){
+  var prusa_gcode = 'M862.2%20Q'
+  var tt_url = '/gcode?gc=' + prusa_gcode;
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+
+
+}
+
+
 /******
  * file upload and list
  */
@@ -645,7 +656,7 @@ source.addEventListener(
     //Specific to leveraging Prusa specfici M37 Gcode that returns percentage back
     var pruse_m37_result = obj.includes("NORMAL MODE");
     if (pruse_m37_result) {
-      var currentprusaPercent = between_text(nodeobj, "Percent done: ", ";");
+      var currentprusaPercent = between_text(obj, "Percent done: ", ";");
       var percent_update = document.getElementById("print-progess");
       percent_update.innerHTML = currentprusaPercent.toString();
       if (currentprusaPercent.toString() === "100") {
@@ -653,6 +664,13 @@ source.addEventListener(
       }
     }
 
+
+    //Check if call contains Prusa MK3S series printer confirmation to display the button
+    if (obj.endsWith('302')|| obj.endsWith('20302'))
+  {
+      $('#mbtn-prusa-disablereset').removeClass('hidden')
+
+  }
 
 
 
@@ -753,6 +771,9 @@ const msetSPIButton = document.getElementById('mbtn-setspi');
 const msetSDIOButton = document.getElementById('mbtn-setsdio');
 
 const findDeviceButton = document.getElementById('mbtn-findDevice');
+const selectPrusaUSBButton = document.getElementById('mbtn-prusa-disablereset');
+const enablePrusaUSB = document.getElementById('mbtn-enablePrusaUSB');
+const disablePrusaUSB = document.getElementById('mbtn-disablePrusaUSB');
 
 
 xpButton.onclick = () => {
@@ -963,6 +984,20 @@ autoCheckButton.onclick = () => {
 };
 
 
+selectPrusaUSBButton.onclick = () => {
+  $('#prusaModal').modal()
+}
+
+enablePrusaUSB.onclick = () => {
+  var cmd = ';C32u2_RME'
+  sendGcode(cmd)
+}
+
+disablePrusaUSB.onclick = () => {
+  var cmd = ';C32u2_RMD'
+  sendGcode(cmd)
+}
+
 
 findDeviceButton.onclick = () => {
   var tt_url = '/find'
@@ -982,7 +1017,7 @@ findDeviceButton.onclick = () => {
 }
 
 
-
+check_if_prusa_MK()
 
 
 
