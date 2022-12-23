@@ -413,7 +413,24 @@
                     </div>                     
                 </div>                 
             </div>             
-        </div>         
+        </div>    
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirm-modal">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content" style="background: #333237;">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myConfirmLabel" style="color: #ffffff;">Action Confirm</h4>
+                </div>
+                <div id="myConfirmbody" class="modal-body" style="color: #ffffff;"> 
+                    ...
+</div>     
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" id="modalConfirm-btn-yes">Yes</button>
+                  <button type="button" class="btn btn-primary" id="modalConfirm-btn-no" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>     
         <script language="javascript">
 				function processerbar(time){
 					document.getElementById('probar').style.display="block";

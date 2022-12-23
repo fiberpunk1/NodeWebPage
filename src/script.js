@@ -8,6 +8,16 @@ function showModal (modalTitle, modalDetail) {
   $('#myModal').modal()
 }
 
+function confirmModal (confirmTitle, confirmDetail){
+
+  var myConfirmLabel = document.getElementById('myConfirmLabel')
+  var myConfirmbody = document.getElementById('myConfirmbody')
+  myConfirmLabel.innerHTML = confirmTitle
+  myConfirmbody.innerHTML = confirmDetail
+  $('#confirm-modal').modal()
+
+}
+
 //This function allows us to get data between to strings of text for easier handling of data
 function between_text (txt_to_search, start_tag, end_tag) {
   var start_index = txt_to_search.indexOf(start_tag)
@@ -309,7 +319,7 @@ function uploadComplete(evt) {
   showModal("File Upload","File " + str_upload_file + " has been uploaded successfully")
   creatTree();
 }
-//上传失败
+//上传失败 - upload failed
 function uploadFailed(evt) {
   showModal("File Upload Failure","File " + str_upload_file + " has failed to be uploaded, please try again.")
 }
@@ -774,6 +784,8 @@ const selectPrusaUSBButton = document.getElementById('mbtn-prusa-disablereset');
 const enablePrusaUSB = document.getElementById('mbtn-enablePrusaUSB');
 const disablePrusaUSB = document.getElementById('mbtn-disablePrusaUSB');
 
+const modalConfirmYes = document.getElementById('modalConfirm-btn-yes');
+
 
 xpButton.onclick = () => {
   var step = getRadioValue();
@@ -892,29 +904,77 @@ setBedLineedit.onkeydown = function (e) {
 };
 
 pauseButton.onclick = () => {
-  var tt_url = '/operate?op=PAUSE';
-  xmlHttp = new XMLHttpRequest();
-  xmlHttp.open('GET', tt_url);
-  xmlHttp.send();
+  confirmModal(
+    "Confirm Pause",
+    "Are you sure you wish to send the Pause command?"
+  );
+
+  var modalConfirm = function (callback) {
+    modalConfirmYes.onclick = () => {
+      callback(true);
+      $("#confirm-modal").modal("hide");
+    };
+  };
+
+  modalConfirm(function (confirm) {
+    if (confirm) {
+      var tt_url = "/operate?op=PAUSE";
+      xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", tt_url);
+      xmlHttp.send();
+    }
+  });
 };
 cancelButton.onclick = () => {
-  var tt_url = '/operate?op=CANCLE';
-  xmlHttp = new XMLHttpRequest();
-  xmlHttp.open('GET', tt_url);
-  xmlHttp.send();
+  confirmModal(
+    "Confirm Cancel",
+    "Are you sure you wish to send the Cancel command?"
+  );
 
-  var percent_ele = document.getElementById('print-progess');
-  var printFileElement = document.getElementById('print-file');
-  percent_ele.innerHTML = 0;
-  printFileElement.innerHTML = 'no file';
-  b_printing = false;
+  var modalConfirm = function (callback) {
+    modalConfirmYes.onclick = () => {
+      callback(true);
+      $("#confirm-modal").modal("hide");
+    };
+  };
+
+  modalConfirm(function (confirm) {
+    if (confirm) {
+      var tt_url = "/operate?op=CANCLE";
+      xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", tt_url);
+      xmlHttp.send();
+
+      var percent_ele = document.getElementById("print-progess");
+      var printFileElement = document.getElementById("print-file");
+      percent_ele.innerHTML = 0;
+      printFileElement.innerHTML = "no file";
+      b_printing = false;
+    }
+  });
 };
 
 restartButton.onclick = () => {
-  var tt_url = '/operate?op=RECOVER';
-  xmlHttp = new XMLHttpRequest();
-  xmlHttp.open('GET', tt_url);
-  xmlHttp.send();
+  confirmModal(
+    "Confirm Restart",
+    "Are you sure you wish to send the Restart command?"
+  );
+
+  var modalConfirm = function (callback) {
+    modalConfirmYes.onclick = () => {
+      callback(true);
+      $("#confirm-modal").modal("hide");
+    };
+  };
+
+  modalConfirm(function (confirm) {
+    if (confirm) {
+      var tt_url = "/operate?op=RECOVER";
+      xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", tt_url);
+      xmlHttp.send();
+    }
+  });
 };
 
 resethostButton.onclick = () => {
