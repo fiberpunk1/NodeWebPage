@@ -770,7 +770,6 @@ const mresethostButton = document.getElementById('mbtn-resethost');
 const msetSPIButton = document.getElementById('mbtn-setspi');
 const msetSDIOButton = document.getElementById('mbtn-setsdio');
 
-const findDeviceButton = document.getElementById('mbtn-findDevice');
 const selectPrusaUSBButton = document.getElementById('mbtn-prusa-disablereset');
 const enablePrusaUSB = document.getElementById('mbtn-enablePrusaUSB');
 const disablePrusaUSB = document.getElementById('mbtn-disablePrusaUSB');
@@ -996,24 +995,6 @@ enablePrusaUSB.onclick = () => {
 disablePrusaUSB.onclick = () => {
   var cmd = ';C32u2_RMD'
   sendGcode(cmd)
-}
-
-
-findDeviceButton.onclick = () => {
-  var tt_url = '/find'
-  xmlHttp = new XMLHttpRequest()
-  xmlHttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      showModal(
-        'Found Node Devices',
-        '<p>The Following Node Devices have been found:</p><p>' +
-          this.responseText.replace(/Beam:/g, '').replace(/:PRINTING:/g, '') +
-          '</p>'
-      )
-    }
-  }
-  xmlHttp.open('GET', tt_url)
-  xmlHttp.send()
 }
 
 
