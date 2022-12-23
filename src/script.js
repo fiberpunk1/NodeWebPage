@@ -46,6 +46,15 @@ function check_if_prusa_MK(){
 }
 
 
+function confirmedOverlay(){
+  let status = document.getElementById('status');
+  status.style.display = null
+  setTimeout(() => {
+      status.style.display = 'none'
+  }, 1500);   
+}
+
+
 /******
  * file upload and list
  */
@@ -922,6 +931,7 @@ pauseButton.onclick = () => {
       xmlHttp = new XMLHttpRequest();
       xmlHttp.open("GET", tt_url);
       xmlHttp.send();
+      confirmedOverlay()
     }
   });
 };
@@ -940,7 +950,7 @@ cancelButton.onclick = () => {
 
   modalConfirm(function (confirm) {
     if (confirm) {
-      var tt_url = "/operate?op=CANCLE";
+     var tt_url = "/operate?op=CANCLE";
       xmlHttp = new XMLHttpRequest();
       xmlHttp.open("GET", tt_url);
       xmlHttp.send();
@@ -950,6 +960,7 @@ cancelButton.onclick = () => {
       percent_ele.innerHTML = 0;
       printFileElement.innerHTML = "no file";
       b_printing = false;
+      confirmedOverlay()
     }
   });
 };
@@ -973,6 +984,7 @@ restartButton.onclick = () => {
       xmlHttp = new XMLHttpRequest();
       xmlHttp.open("GET", tt_url);
       xmlHttp.send();
+      confirmedOverlay()
     }
   });
 };
