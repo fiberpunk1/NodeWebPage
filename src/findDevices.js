@@ -19,16 +19,25 @@ findDeviceButton.onclick = () => {
   $(findDeviceButton).button("loading");
 
   var gfg = document.URL;
-  var url_temp = gfg.substring(gfg.indexOf("/") + 2, gfg.lastIndexOf(":") - 1);
-
-  url_template = "http://" + url_temp + "{{number}}:88/find";
-  //url_template = "http://192.168.1." + "{{number}}:88/find";
+  var url_temp = gfg.substring(gfg.indexOf("/") + 2, gfg.lastIndexOf(":"));
   min = 2;
   max = 254;
-  timeout = 300;
+  timeout = 700;
   resultCount = 0;
   detail = "";
-  loopFind(min);
+
+  if (url_temp.match(/\./g).length == 3) {
+    const myArray = url_temp.split(".");
+    url_temp = myArray[0] + "." + myArray[1] + "." + myArray[2];
+    url_template = "http://" + url_temp + ".{{number}}:88/find";
+    //url_template = "http://192.168.1." + "{{number}}:88/find";
+    loopFind(min);
+  } else {
+    showModal(
+      "Non local IP",
+      "Find Devices Currently Only works for local network searching"
+    );
+  }
 };
 
 function loopFind(i) {
