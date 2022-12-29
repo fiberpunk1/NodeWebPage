@@ -80,6 +80,8 @@ const activebuttons = () => {
   muser1.disabled = b_printing;
   muser2.disabled = b_printing;
   muser3.disabled = b_printing;
+  updateButton.disabled = b_printing;
+  uploadButton.disabled = b_printing;
 };
 
 setInterval(activebuttons, 2000);

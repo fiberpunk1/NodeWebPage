@@ -35,7 +35,7 @@ findDeviceButton.onclick = () => {
   } else {
     showModal(
       "Non local IP",
-      "Find Devices Currently Only works for local network searching"
+      "<p>Find Devices Currently Only works for local network searching</p>"
     );
   }
 };
