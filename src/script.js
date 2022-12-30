@@ -1,6 +1,5 @@
-
 //Use a modal instead of an alert
-function showModal (modalTitle, modalDetail) {
+function showModal(modalTitle, modalDetail) {
   var myModalLabel = document.getElementById('myModalLabel')
   var myModalbody = document.getElementById('myModalbody')
   myModalLabel.innerHTML = modalTitle
@@ -9,7 +8,7 @@ function showModal (modalTitle, modalDetail) {
 }
 
 //This function allows us to get data between to strings of text for easier handling of data
-function between_text (txt_to_search, start_tag, end_tag) {
+function between_text(txt_to_search, start_tag, end_tag) {
   var start_index = txt_to_search.indexOf(start_tag)
   if (start_index > -1) {
     start_index += start_tag.length
@@ -48,10 +47,10 @@ function isTextFile(path) {
   return false;
 }
 
-var b_printing= false;
+var b_printing = false;
 var str_upload_file = "";
 
-function updateUserBtn(){
+function updateUserBtn() {
   var tt_url = '/getfmdname';
   xmlHttp = new XMLHttpRequest();
   xmlHttp.open('GET', tt_url);
@@ -61,19 +60,19 @@ function updateUserBtn(){
 
 function formatFileSize(fileSize) {
   if (fileSize < 1024) {
-      return fileSize + 'B';
-  } else if (fileSize < (1024*1024)) {
-      var temp = fileSize / 1024;
-      temp = temp.toFixed(2);
-      return temp + 'KB';
-  } else if (fileSize < (1024*1024*1024)) {
-      var temp = fileSize / (1024*1024);
-      temp = temp.toFixed(2);
-      return temp + 'MB';
+    return fileSize + 'B';
+  } else if (fileSize < (1024 * 1024)) {
+    var temp = fileSize / 1024;
+    temp = temp.toFixed(2);
+    return temp + 'KB';
+  } else if (fileSize < (1024 * 1024 * 1024)) {
+    var temp = fileSize / (1024 * 1024);
+    temp = temp.toFixed(2);
+    return temp + 'MB';
   } else {
-      var temp = fileSize / (1024*1024*1024);
-      temp = temp.toFixed(2);
-      return temp + 'GB';
+    var temp = fileSize / (1024 * 1024 * 1024);
+    temp = temp.toFixed(2);
+    return temp + 'GB';
   }
 }
 
@@ -144,13 +143,13 @@ function addList(parent, path, items) {
               resp.startsWith('SD') ||
               resp.startsWith('PRINTER')
             ) {
-                if(resp.startsWith('NOT DIR')){
-                showModal("SD card failed","Node init SD card failed, please click 'Mount SD' and update file list again")
-                }else if(resp.startsWith('PRINTER BUSY')){
-                  showModal("Printer Busy","Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
-                }else{
-                  showModal("Node Error",resp)
-                }
+              if (resp.startsWith('NOT DIR')) {
+                showModal("SD card failed", "Node init SD card failed, please click 'Mount SD' and update file list again")
+              } else if (resp.startsWith('PRINTER BUSY')) {
+                showModal("Printer Busy", "Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
+              } else {
+                showModal("Node Error", resp)
+              }
             }
           };
           var short_name = '/' + convertToShortName(this.className);
@@ -178,12 +177,12 @@ function addList(parent, path, items) {
               resp.startsWith('SD') ||
               resp.startsWith('PRINTER')
             ) {
-              if(resp.startsWith('NOT DIR')){
-                showModal("SD card failed","Node init SD card failed, please click 'Mount SD' and update file list again")
-              }else if(resp.startsWith('PRINTER BUSY')){
-                showModal("Printer Busy","Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
-              }else{
-                showModal("Node Error",resp)
+              if (resp.startsWith('NOT DIR')) {
+                showModal("SD card failed", "Node init SD card failed, please click 'Mount SD' and update file list again")
+              } else if (resp.startsWith('PRINTER BUSY')) {
+                showModal("Printer Busy", "Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
+              } else {
+                showModal("Node Error", resp)
               }
             }
           };
@@ -205,21 +204,21 @@ function httpGet(parent, path) {
       if (xmlHttp.status == 200)
         addList(parent, path, JSON.parse(xmlHttp.responseText));
       console.log("Get response of path:");
-        console.log(xmlHttp.responseText);
+      console.log(xmlHttp.responseText);
     }
     if (
       resp.startsWith('NO') ||
       resp.startsWith('SD') ||
       resp.startsWith('PRINTER')
     ) {
-        if(resp.startsWith('NOT DIR')){
-        showModal("SD card failed","Node init SD card failed, please click 'Mount SD' and update file list again")
-        }else if(resp.startsWith('PRINTER BUSY')){
-          showModal("Printer Busy","Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
-        }else{
-          showModal("Node Error",resp)
-        }
-      
+      if (resp.startsWith('NOT DIR')) {
+        showModal("SD card failed", "Node init SD card failed, please click 'Mount SD' and update file list again")
+      } else if (resp.startsWith('PRINTER BUSY')) {
+        showModal("Printer Busy", "Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
+      } else {
+        showModal("Node Error", resp)
+      }
+
     }
   };
   xmlHttp.open('GET', '/list?dir=' + path, true);
@@ -255,10 +254,10 @@ unmountButton.onclick = () => {
       resp.startsWith('SD') ||
       resp.startsWith('PRINTER')
     ) {
-      if(resp.startsWith('PRINTER BUSY')){
-        showModal("Printer Busy","Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
-      }else{
-        showModal("Node Error",resp)
+      if (resp.startsWith('PRINTER BUSY')) {
+        showModal("Printer Busy", "Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
+      } else {
+        showModal("Node Error", resp)
       }
     }
   };
@@ -276,12 +275,12 @@ mountButton.onclick = () => {
       resp.startsWith('SD') ||
       resp.startsWith('PRINTER')
     ) {
-      if(resp.startsWith('NOT DIR')){
-        showModal("SD card failed","Node init SD card failed, please click 'Mount SD' and update file list again")
-      }else if(resp.startsWith('PRINTER BUSY')){
-        showModal("Printer Busy","Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
-      }else{
-        showModal("Node Error",resp)
+      if (resp.startsWith('NOT DIR')) {
+        showModal("SD card failed", "Node init SD card failed, please click 'Mount SD' and update file list again")
+      } else if (resp.startsWith('PRINTER BUSY')) {
+        showModal("Printer Busy", "Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
+      } else {
+        showModal("Node Error", resp)
       }
     }
   };
@@ -292,15 +291,15 @@ mountButton.onclick = () => {
 function uploadComplete(evt) {
   var progressBar = document.getElementById('progressbar');
   progressBar.value = 0;
-  document.getElementById('probar').style.display="none";
+  document.getElementById('probar').style.display = "none";
   // document.getElementById('file_msg').style.display="block";
-  document.getElementById('file_msg').innerHTML=str_upload_file;
-  showModal("File Upload","File " + str_upload_file + " has been uploaded successfully")
+  document.getElementById('file_msg').innerHTML = str_upload_file;
+  showModal("File Upload", "File " + str_upload_file + " has been uploaded successfully")
   createTree();
 }
 //上传失败
 function uploadFailed(evt) {
-  showModal("File Upload Failure","File " + str_upload_file + " has failed to be uploaded, please try again.")
+  showModal("File Upload Failure", "File " + str_upload_file + " has failed to be uploaded, please try again.")
 }
 
 function progressFunction(evt) {
@@ -324,9 +323,9 @@ uploadButton.onclick = () => {
   if (input.files.length === 0) {
     return;
   }
-  document.getElementById('probar').style.display="block";
+  document.getElementById('probar').style.display = "block";
   str_upload_file = input.files[0].name;
-  document.getElementById('file_msg').innerHTML=" ";
+  document.getElementById('file_msg').innerHTML = " ";
   var fileListM = document.getElementById('file-list-frame');
   while (fileListM.hasChildNodes()) {
     fileListM.removeChild(fileListM.lastChild);
@@ -339,10 +338,9 @@ uploadButton.onclick = () => {
   var formData = new FormData();
   var savePath = '';
   var random_start = makeId(3);
-  if(input.files[0].name.endsWith('gcode'))  {
+  if (input.files[0].name.endsWith('gcode')) {
     savePath = '/' + random_start + '-' + input.files[0].name;
-  }
-  else{
+  } else {
     savePath = '/' + input.files[0].name;
   }
   formData.append('data', input.files[0], savePath);
@@ -380,12 +378,12 @@ sendGcodeButton.onclick = () => {
       resp.startsWith('SD') ||
       resp.startsWith('PRINTER')
     ) {
-      if(resp.startsWith('NOT DIR')){
-        showModal("SD card failed","Node init SD card failed, please click 'Mount SD' and update file list again")
-      }else if(resp.startsWith('PRINTER BUSY')){
-        showModal("Printer Busy","Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
-      }else{
-        showModal("Node Error",resp)
+      if (resp.startsWith('NOT DIR')) {
+        showModal("SD card failed", "Node init SD card failed, please click 'Mount SD' and update file list again")
+      } else if (resp.startsWith('PRINTER BUSY')) {
+        showModal("Printer Busy", "Printer is printing, or not finish job normally, click 'Cancel' can get printer again.")
+      } else {
+        showModal("Node Error", resp)
       }
     }
   };
@@ -400,11 +398,11 @@ document.getElementById("btn-sel-copy").addEventListener("click", function (e) {
   var textarea = document.getElementById("serial-console");
   e.target.download = "log-" + (new Date()).toLocaleTimeString() + ".txt";
   console.log(textarea.value);
-  e.target.href = "data:image/svg+xml;,"+encodeURIComponent(textarea.value);
+  e.target.href = "data:image/svg+xml;," + encodeURIComponent(textarea.value);
   textarea.select();
   document.execCommand("copy");
 
-}, false);  
+}, false);
 
 
 //enter button
@@ -477,32 +475,31 @@ source.addEventListener(
     var obj = e.data;
     var scrollText = document.getElementById('serial-console');
     var show_msg = true;
-    if(obj.startsWith('##')&&obj.endsWith('&&'))
-    {
+    if (obj.startsWith('##') && obj.endsWith('&&')) {
       var user1 = document.getElementById('user-1');
       var user2 = document.getElementById('user-2');
       var user3 = document.getElementById('user-3');
       // var user4 = document.getElementById('user-4');
       var users = new Array();
-      users[0]=user1;
-      users[1]=user2;
-      users[2]=user3;
+      users[0] = user1;
+      users[1] = user2;
+      users[2] = user3;
       // users[3]=user4;
       var muser1 = document.getElementById('muser-1');
       var muser2 = document.getElementById('muser-2');
       var muser3 = document.getElementById('muser-3');
       // var user4 = document.getElementById('user-4');
       var musers = new Array();
-      musers[0]=muser1;
-      musers[1]=muser2;
-      musers[2]=muser3;
+      musers[0] = muser1;
+      musers[1] = muser2;
+      musers[2] = muser3;
 
       var str_sub = obj.slice(2, -2).split(';');
       var ary_len = str_sub.length;
-      for(var i=0; i<3;i++){
-        if(str_sub[i].startsWith('/fmd')&&str_sub[i].endsWith('txt')){
-          users[i].innerHTML = str_sub[i].slice(5,-6);
-          musers[i].innerHTML = str_sub[i].slice(5,-6);
+      for (var i = 0; i < 3; i++) {
+        if (str_sub[i].startsWith('/fmd') && str_sub[i].endsWith('txt')) {
+          users[i].innerHTML = str_sub[i].slice(5, -6);
+          musers[i].innerHTML = str_sub[i].slice(5, -6);
         }
       }
       // console.log(str_sub);
@@ -518,7 +515,7 @@ source.addEventListener(
     var reg_short_low = /:([\S\s]*).gco/g;
     var reg_end = /Finish/g;
 
-    var reg_chip=/Start @/g
+    var reg_chip = /Start @/g
 
     // refer marlin language.h  STR_SD_XXX
     var reg_sd_err_init = /No SD card/g;
@@ -527,9 +524,9 @@ source.addEventListener(
     var reg_sd_err_root = /openRoot failed/g;
 
     var b_start = obj.match(reg_chip);
-    if(b_start){
+    if (b_start) {
       //setTimeout for update fmd button
-      setTimeout(updateUserBtn,1000);
+      setTimeout(updateUserBtn, 1000);
     }
 
     var checkTemperature = document.getElementById('easymode').checked;
@@ -541,7 +538,7 @@ source.addEventListener(
       var display_header = header_tmp + '/' + header_targ;
       var header_ele = document.getElementById('hothead-display');
       header_ele.innerHTML = display_header;
-      if(checkTemperature){
+      if (checkTemperature) {
         show_msg = false;
         console.log("not show the temperature");
         console.log(checkTemperature);
@@ -555,7 +552,7 @@ source.addEventListener(
       var display_bed = beder_tmp + '/' + beder_targ;
       var bed_ele = document.getElementById('hotbed-display');
       bed_ele.innerHTML = display_bed;
-      if(checkTemperature){
+      if (checkTemperature) {
         show_msg = false;
       }
     }
@@ -567,7 +564,7 @@ source.addEventListener(
       var percent = Math.round((current_line / total_lines) * 100);
       var percent_ele = document.getElementById('print-progress');
       percent_ele.innerHTML = percent.toString();
-      if(checkTemperature){
+      if (checkTemperature) {
         show_msg = false;
       }
     }
@@ -576,31 +573,29 @@ source.addEventListener(
     if (print_file) {
       var printFileElement = document.getElementById('print-file');
       printFileElement.innerHTML = RegExp.$1 + '.GCO';
-      if(checkTemperature) {
+      if (checkTemperature) {
         show_msg = false;
       }
     }
 
     var print_ful_name = obj.match(reg_af);
     if (print_ful_name) {
-        var printFileElement = document.getElementById('print-file');
-        printFileElement.innerHTML = RegExp.$2 + '.gcode';
-      if(checkTemperature) {
+      var printFileElement = document.getElementById('print-file');
+      printFileElement.innerHTML = RegExp.$2 + '.gcode';
+      if (checkTemperature) {
         show_msg = false;
       }
     }
 
     // process SD card error
-    if(b_printing)
-    {
-      if(obj.match(reg_sd_err_init) || obj.match(reg_sd_err_subdir) ||obj.match(reg_sd_err_volinit) ||obj.match(reg_sd_err_root) )
-      {
-        showModal("Printer SD Card Failure",'Printer init SD card failed! Can not start printing, please check SD card and try again.')
+    if (b_printing) {
+      if (obj.match(reg_sd_err_init) || obj.match(reg_sd_err_subdir) || obj.match(reg_sd_err_volinit) || obj.match(reg_sd_err_root)) {
+        showModal("Printer SD Card Failure", 'Printer init SD card failed! Can not start printing, please check SD card and try again.')
         var tt_url = '/operate?op=CANCLE';
         xmlHttp = new XMLHttpRequest();
         xmlHttp.open('GET', tt_url);
         xmlHttp.send();
-      
+
         var percent_ele = document.getElementById('print-progress');
         var printFileElement = document.getElementById('print-file');
         percent_ele.innerHTML = 0;
@@ -609,23 +604,22 @@ source.addEventListener(
       }
     }
 
-    if(obj.includes("no file")){
+    if (obj.includes("no file")) {
 
-      if(b_printing)
-      {
+      if (b_printing) {
         var tt_url = '/operate?op=CANCLE';
         xmlHttp = new XMLHttpRequest();
         xmlHttp.open('GET', tt_url);
         xmlHttp.send();
-      
+
         var percent_ele = document.getElementById('print-progress');
         var printFileElement = document.getElementById('print-file');
         percent_ele.innerHTML = 0;
         printFileElement.innerHTML = 'no file';
-       
+
         b_printing = false;
       }
-    } 
+    }
 
     var print_prusa_short = obj.match(reg_short_low);
     if (print_prusa_short) {
@@ -647,7 +641,7 @@ source.addEventListener(
       var percent_update = document.getElementById("print-progress");
       percent_update.innerHTML = currentPrusaPercent.toString();
       if (currentPrusaPercent.toString() === "100") {
-        showModal("Printer Job",'The current print file has completed successfully.')
+        showModal("Printer Job", 'The current print file has completed successfully.')
       }
     }
 
@@ -663,11 +657,11 @@ source.addEventListener(
       var printFileElement = document.getElementById('print-file');
       percent_ele.innerHTML = 0;
       printFileElement.innerHTML = 'no file';
-      showModal("Printer Job",'The current print file has completed successfully.')
+      showModal("Printer Job", 'The current print file has completed successfully.')
     }
 
 
-    if(show_msg){
+    if (show_msg) {
       obj += '\r\n';
       scrollText.value += obj;
       scrollText.scrollTop = scrollText.scrollHeight;
@@ -679,6 +673,7 @@ source.addEventListener(
 );
 
 var int = self.setInterval('updateStatus()', 8000);
+
 function updateStatus() {
   var tt_url = '/status';
   xmlHttp = new XMLHttpRequest();
@@ -903,7 +898,7 @@ resethostButton.onclick = () => {
 };
 
 setSPIButton.onclick = () => {
-  showModal("SD Reading Method Changes",'After switching the SD data reading method, please must repower your Node and 3D printer.')
+  showModal("SD Reading Method Changes", 'After switching the SD data reading method, please must repower your Node and 3D printer.')
   var tt_url = '/setsdtype?type=SPI';
   xmlHttp = new XMLHttpRequest();
   xmlHttp.open('GET', tt_url);
@@ -911,7 +906,7 @@ setSPIButton.onclick = () => {
 };
 
 setSDIOButton.onclick = () => {
-  showModal("SD Reading Method Changes",'After switching the SD data reading method, please must repower your Node and 3D printer.')
+  showModal("SD Reading Method Changes", 'After switching the SD data reading method, please must repower your Node and 3D printer.')
   var tt_url = '/setsdtype?type=SDIO';
   xmlHttp = new XMLHttpRequest();
   xmlHttp.open('GET', tt_url);
@@ -926,7 +921,7 @@ mresethostButton.onclick = () => {
 };
 
 msetSPIButton.onclick = () => {
-  showModal("SD Reading Method Changes",'After switching the SD data reading method, please must repower your Node and 3D printer.')
+  showModal("SD Reading Method Changes", 'After switching the SD data reading method, please must repower your Node and 3D printer.')
   var tt_url = '/setsdtype?type=SPI';
   xmlHttp = new XMLHttpRequest();
   xmlHttp.open('GET', tt_url);
@@ -934,7 +929,7 @@ msetSPIButton.onclick = () => {
 };
 
 msetSDIOButton.onclick = () => {
-  showModal("SD Reading Method Changes",'After switching the SD data reading method, please must repower your Node and 3D printer.')
+  showModal("SD Reading Method Changes", 'After switching the SD data reading method, please must repower your Node and 3D printer.')
   var tt_url = '/setsdtype?type=SDIO';
   xmlHttp = new XMLHttpRequest();
   xmlHttp.open('GET', tt_url);
@@ -943,15 +938,15 @@ msetSDIOButton.onclick = () => {
 
 autoCheckButton.onclick = () => {
   // auto check step
-  sendUrlRequest('/resetusb',200);
+  sendUrlRequest('/resetusb', 200);
   //1. homeimg test
   var i = 0;
-  for(i=0;i<3;i++){
-      sendGcode('M118 $Fiberpunk echo\n');
+  for (i = 0; i < 3; i++) {
+    sendGcode('M118 $Fiberpunk echo\n');
   }
-  setTimeout(function() {
+  setTimeout(function () {
     sendGcode('M115\n');
-  },100);
+  }, 100);
 
   sendUrlRequest('/operate?op=GETSD', 1300);
   createTree();
@@ -970,20 +965,11 @@ findDeviceButton.onclick = () => {
       showModal(
         'Found Node Devices',
         '<p>The Following Node Devices have been found:</p><p>' +
-          this.responseText.replace(/Beam:/g, '').replace(/:PRINTING:/g, '') +
-          '</p>'
+        this.responseText.replace(/Beam:/g, '').replace(/:PRINTING:/g, '') +
+        '</p>'
       )
     }
   }
   xmlHttp.open('GET', tt_url)
   xmlHttp.send()
 }
-
-
-
-
-
-
-
-
-
