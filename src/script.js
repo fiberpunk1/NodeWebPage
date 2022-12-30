@@ -23,7 +23,6 @@ function between_text(txt_to_search, start_tag, end_tag) {
   }
 }
 
-
 /******
  * file upload and list
  */
@@ -365,7 +364,6 @@ const muser1 = document.getElementById('muser-1');
 const muser2 = document.getElementById('muser-2');
 const muser3 = document.getElementById('muser-3');
 
-
 sendGcodeButton.onclick = () => {
   var cmdLineEdit = document.getElementById('gcode-lineedit');
   var cmd = cmdLineEdit.value;
@@ -403,7 +401,6 @@ document.getElementById("btn-sel-copy").addEventListener("click", function (e) {
   document.execCommand("copy");
 
 }, false);
-
 
 //enter button
 sendGcdoeInput.onkeydown = function (e) {
@@ -463,9 +460,6 @@ muser3.onclick = () => {
   xmlHttp.send();
   console.log("user3 button");
 };
-
-
-
 
 var source = new EventSource('/events');
 source.addEventListener(
@@ -633,7 +627,6 @@ source.addEventListener(
       printFileElement.innerHTML = RegExp.$1 + '.gcode';
     }
 
-
     //Specific to leveraging Prusa specific M37 Gcode that returns percentage back
     var prusa_m37_result = obj.includes("NORMAL MODE");
     if (prusa_m37_result) {
@@ -645,11 +638,6 @@ source.addEventListener(
       }
     }
 
-
-
-
-
-
     var b_finish = obj.match(reg_end);
     var b_done = obj.match(/Done/g);
     if (b_finish || b_done) {
@@ -660,14 +648,11 @@ source.addEventListener(
       showModal("Printer Job", 'The current print file has completed successfully.')
     }
 
-
     if (show_msg) {
       obj += '\r\n';
       scrollText.value += obj;
       scrollText.scrollTop = scrollText.scrollHeight;
     }
-
-
   },
   false
 );
@@ -746,7 +731,6 @@ const msetSPIButton = document.getElementById('mbtn-setspi');
 const msetSDIOButton = document.getElementById('mbtn-setsdio');
 
 const findDeviceButton = document.getElementById('mbtn-findDevice');
-
 
 xpButton.onclick = () => {
   var step = getRadioValue();
@@ -954,8 +938,6 @@ autoCheckButton.onclick = () => {
   sendGcode('M20\n');
   sendUrlRequest('/operate?op=GETSD', 300);
 };
-
-
 
 findDeviceButton.onclick = () => {
   var tt_url = '/find'
