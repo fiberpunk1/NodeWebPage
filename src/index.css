@@ -6,6 +6,10 @@ body {
     background-size: 100% auto;
 }
 
+.panel-default {
+	border-color: #333237 !important;
+}
+
 .logo {
     width: 40%;
 }
@@ -508,7 +512,7 @@ border-radius:8px; */
 
 .l-l2 {
     box-shadow: 1px 1px 2px 0 #000;
-    background-color: #262628;
+    /* background-color: #262628; */
 }
 
 .form-control {

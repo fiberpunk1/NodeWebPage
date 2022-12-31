@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en"> 
     <head> 
+        <title>Node by Fiberpunk</title>         
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
         <link rel="stylesheet" type="text/css" href="bootstrap.css"/> 
         <link rel="stylesheet" type="text/css" href="index.css"/> 
@@ -8,6 +9,8 @@
         <script src="bootstrap.min.js"></script>         
     </head>     
     <body> 
+        <div id="status" class="alert alert-success" id="success-alert" style="display: none;"> <strong>Success!</strong> Command executed.
+        </div>         
         <nav class="navbar navbar-inverse"> 
             <div class="container-fluid"> 
                 <div class="navbar-header"> <a href="#"> <img src="logo_03.png" alt="" sizes="4000px" width="50%"> </a> 
@@ -17,12 +20,18 @@
             </div>             
         </nav>         
         <div class="container-fluid"> 
-            <div class="row">
+            <div class="row"> 
                 <div class="btn-group pull-left" role="group" aria-label="Basic example" style="margin-left: 15px;"> 
-                    <button type="button" class="btn btn-default" style="display: none;">Add Sentry</button>                     
-                    <button id="mbtn-findDevice" type="button" class="btn btn-default">Find Devices</button>                     
-                </div>
-            </div>
+                    <button type="button" class="btn btn-default hidden" display="none">Add Sentry</button>                     
+                    <button type="button" class="btn btn-default" id="mbtn-findDevice" data-loading-text="Finding Devices"> Find Devices</button>                     
+                </div>                 
+                <div class="col-md-4"> 
+                    <div id='progressDisplay' class="active hidden progress progress-bar-striped" style="margin-top: 8px; margin-bottom: -8px;"> 
+                        <div id='progressDetail' class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"> <span class="sr-only">10% Complete</span> 
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </div>             
             <div class="m-c"> 
                 <div class="l-right"> 
                     <div class="c-si"> 
@@ -112,7 +121,7 @@
 </button>                                             
                                         </td>                                         
                                     </tr>                                     
-                                </tbody>
+                                </tbody>                                 
                             </table>                             
                         </div>                         
                     </div>                     
@@ -271,7 +280,7 @@
                 <div class="l-l"> 
                     <div class="table-responsive"> 
                         <table class="table"> 
-                            <tbody>
+                            <tbody> 
                                 <tr> 
                                     <td class="active"> 
                                         <button class="btn btn-default btn-block" type="button" id="update-list" title="Update gcode file list from the SD card"> 
@@ -289,7 +298,7 @@
 </button>                                         
                                     </td>                                     
                                 </tr>                                 
-                            </tbody>
+                            </tbody>                             
                         </table>                         
                     </div>                     
                     <div class="table-responsive table-responsive2"> 
@@ -335,7 +344,7 @@
 </button>                                             
                                         </td>                                         
                                     </tr>                                     
-                                </tbody>
+                                </tbody>                                 
                             </table>                             
                         </div>                         
                     </div>                     
@@ -353,42 +362,87 @@
                             <button type="button" class="btn btn-default" id="btn-auto-check" title="send M115 and auto mount SD ,unmount SD to check Node's core cunction"> 
                                 Auto Check
 </button>                             
+                            <button type="button" class="btn btn-default hidden" id="mbtn-prusa-disablereset" title="Select if you wish to enable or disable the Prusa setting to restart when USB is connected">Enable/Disable Prusa USB Reset</button>                             
                         </div>                         
-                    </div>                     
-                    <div class="row"> 
-                        <form style="margin-left: 20px;"> 
-                            <label class="form-check-label pull-left">
-                                <input type="checkbox" class="form-check-input" id="easymode">&nbsp;Filter temperature information
-                            </label>                             
-                        </form>
-                        <div class=""> 
-                            <textarea class="form-control" rows="20" id="serial-console"></textarea> 
+                    </div>
+                    <div role="tablist" id="accordion" aria-multiselectable="true" class="panel-group"> 
+                        <div class="bg-primary panel panel-default" style="background-color: #333237;"> 
+                            <div class="panel-heading" role="tab" id="headingOne" style="background-color: #4a494e;"> 
+                                <h4 class="panel-title"> <a class="collapsed" href="#collapseOne" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne" style="color: #ffffff;"> Console - Show/Hide </a> </h4> 
+                            </div>                             
+                            <div class="panel-collapse collapse" role="tabpanel" id="collapseOne" aria-labelledby="headingOne"> 
+                                <div class="row"> 
+                                    <form style="margin-left: 20px;"> 
+                                        <label class="form-check-label pull-left"> 
+                                            <input type="checkbox" class="form-check-input" id="easymode">&nbsp;Filter temperature information
+                                        </label>                                         
+                                    </form>                                     
+                                    <div> 
+                                        <textarea class="form-control" rows="20" id="serial-console" style="margin-left: 10px;"></textarea> 
+                                    </div>                                     
+                                </div>                                 
+                            </div>                             
                         </div>                         
                     </div>                     
                 </div>                 
-            </div>
+            </div>             
             <div class="row"> 
-                <label class="pull-left" style="margin-left: 15px;"> <span>node-webpage-2022-12-10-1</span> 
+                <label class="pull-left" style="margin-left: 15px;"> <span>node-webpage-2022-12-29-1</span> 
                 </label>                 
             </div>             
-        </div>
-        <div class="modal fade pg-show-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                    </div>
-                    <div id="myModalbody" class="modal-body">
+        </div>         
+        <div class="modal fade pg-show-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> 
+            <div class="modal-dialog" role="document"> 
+                <div class="modal-content"> 
+                    <div class="modal-header"> 
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> 
+                        </button>                         
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4> 
+                    </div>                     
+                    <div id="myModalbody" class="modal-body"> 
                         ...
-</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
+</div>                     
+                    <div class="modal-footer"> 
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                         
+                    </div>                     
+                </div>                 
+            </div>             
+        </div>         
+        <div class="fade modal pg-show-modal" id="prusaModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"> 
+            <div class="modal-dialog modal-sm" role="document"> 
+                <div class="modal-content" style="background: #333237;"> 
+                    <div class="modal-header"> 
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" style="color: #ffffff;">&times;</span> 
+                        </button>                         
+                        <h4 class="modal-title" id="prusaModalLabel" style="color: #ffffff;">Prusa Restart on USB Connect</h4> 
+                    </div>                     
+                    <div id="prusaModalbody" class="modal-body text-center"> 
+                        <button type="button" class="btn btn-success" id="mbtn-enablePrusaUSB" data-dismiss="modal">Enable</button>                         
+                        <button type="button" class="btn btn-warning" id="mbtn-disablePrusaUSB" data-dismiss="modal">Disable</button>                         
+                    </div>                     
+                    <div class="modal-footer"> 
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>                         
+                    </div>                     
+                </div>                 
+            </div>             
+        </div>         
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirm-modal"> 
+            <div class="modal-dialog modal-sm"> 
+                <div class="modal-content" style="background: #333237;"> 
+                    <div class="modal-header"> 
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> 
+                        </button>                         
+                        <h4 class="modal-title" id="myConfirmLabel" style="color: #ffffff;">Action Confirm</h4> 
+                    </div>                     
+                    <div id="myConfirmbody" class="modal-body" style="color: #ffffff;"> 
+                        ...
+</div>                     
+                    <div class="modal-footer"> 
+                        <button type="button" class="btn btn-warning" id="modalConfirm-btn-yes">Yes</button>                         
+                        <button type="button" class="btn btn-primary" id="modalConfirm-btn-no" data-dismiss="modal">No</button>                         
+                    </div>                     
+                </div>                 
+            </div>             
         </div>         
         <script language="javascript">
 				function processerbar(time){
@@ -424,5 +478,6 @@
 					   })
 				</script>         
         <script src="script.js"></script>         
+        <script src="findDevices.js"></script>         
     </body>     
 </html>
