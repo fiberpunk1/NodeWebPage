@@ -704,9 +704,12 @@ const resethostButton = document.getElementById('btn-resethost');
 const setSPIButton = document.getElementById('btn-setspi');
 const setSDIOButton = document.getElementById('btn-setsdio');
 
-const mresethostButton = document.getElementById('mbtn-resethost');
-const msetSPIButton = document.getElementById('mbtn-setspi');
-const msetSDIOButton = document.getElementById('mbtn-setsdio');
+const setSDInitWithButton = document.getElementById('btn-with-sd');
+const setSDInitWithoutButton = document.getElementById('btn-without-sd');
+
+// const mresethostButton = document.getElementById('mbtn-resethost');
+// const msetSPIButton = document.getElementById('mbtn-setspi');
+// const msetSDIOButton = document.getElementById('mbtn-setsdio');
 
 xpButton.onclick = () => {
   var step = getRadioValue();
@@ -877,32 +880,54 @@ setSDIOButton.onclick = () => {
   xmlHttp.send();
 };
 
-mresethostButton.onclick = () => {
-  var tt_url = '/resetusb';
+//ESP32 init with SD card
+setSDInitWithButton.onclick = () => {
+  alert(
+    'Please must repower your Node and 3D printer.'
+  );
+  var tt_url = '/setsdinit?type=NONE';
   xmlHttp = new XMLHttpRequest();
   xmlHttp.open('GET', tt_url);
   xmlHttp.send();
 };
 
-msetSPIButton.onclick = () => {
+//ESP32 init without SD card
+setSDInitWithoutButton.onclick = () => {
   alert(
-    'After switching the SD data reading method, please must repower your Node and 3D printer.'
+    'Please must repower your Node and 3D printer.'
   );
-  var tt_url = '/setsdtype?type=SPI';
+  var tt_url = '/setsdinit?type=PRINTING';
   xmlHttp = new XMLHttpRequest();
   xmlHttp.open('GET', tt_url);
   xmlHttp.send();
 };
 
-msetSDIOButton.onclick = () => {
-  alert(
-    'After switching the SD data reading method, please must repower your Node and 3D printer.'
-  );
-  var tt_url = '/setsdtype?type=SDIO';
-  xmlHttp = new XMLHttpRequest();
-  xmlHttp.open('GET', tt_url);
-  xmlHttp.send();
-};
+// mresethostButton.onclick = () => {
+//   var tt_url = '/resetusb';
+//   xmlHttp = new XMLHttpRequest();
+//   xmlHttp.open('GET', tt_url);
+//   xmlHttp.send();
+// };
+
+// msetSPIButton.onclick = () => {
+//   alert(
+//     'After switching the SD data reading method, please must repower your Node and 3D printer.'
+//   );
+//   var tt_url = '/setsdtype?type=SPI';
+//   xmlHttp = new XMLHttpRequest();
+//   xmlHttp.open('GET', tt_url);
+//   xmlHttp.send();
+// };
+
+// msetSDIOButton.onclick = () => {
+//   alert(
+//     'After switching the SD data reading method, please must repower your Node and 3D printer.'
+//   );
+//   var tt_url = '/setsdtype?type=SDIO';
+//   xmlHttp = new XMLHttpRequest();
+//   xmlHttp.open('GET', tt_url);
+//   xmlHttp.send();
+// };
 
 autoCheckButton.onclick = () => {
   // auto check step
