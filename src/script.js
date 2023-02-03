@@ -482,7 +482,9 @@ source.addEventListener(
     }
 
     //get file name, progress and tempture
+    var reg_t_prusa = /T:([0-9]*\.[0-9]*)/g;
     var reg_t = /T:([0-9]*\.[0-9]*) *\/([0-9]*\.[0-9]*)/g;
+    var reg_b_prusa = /B:([0-9]*\.[0-9]*)/g;
     var reg_b = /B:([0-9]*\.[0-9]*) *\/([0-9]*\.[0-9]*)/g;
     var reg_p = /SD printing byte ([0-9]*)\/([0-9]*)/g;
     var reg_f = /Current file:([\S\s]*).GCO/g;
@@ -507,6 +509,19 @@ source.addEventListener(
 
     var checktempture = document.getElementById('easymode').checked;
 
+    var heater = obj.match(reg_t_prusa);
+    if (heater) {
+      var header_tmp = RegExp.$1;
+      var display_header = header_tmp;
+      var header_ele = document.getElementById('hothead-display');
+      header_ele.innerHTML = display_header;
+      if(checktempture){
+        show_msg = false;
+        console.log("not show the tempture");
+        console.log(checktempture);
+      }
+    }
+
     var heater = obj.match(reg_t);
     if (heater) {
       var header_tmp = RegExp.$1;
@@ -519,6 +534,19 @@ source.addEventListener(
         console.log("not show the tempture");
         console.log(checktempture);
       }
+    }
+
+    var beder = obj.match(reg_b_prusa);
+    if (beder) {
+      var beder_tmp = RegExp.$1;
+      
+      var display_bed = beder_tmp;
+      var bed_ele = document.getElementById('hotbed-display');
+      bed_ele.innerHTML = display_bed;
+      if(checktempture){
+        show_msg = false;
+      }
+        
     }
 
     var beder = obj.match(reg_b);

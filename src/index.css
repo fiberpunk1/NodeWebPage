@@ -451,6 +451,11 @@ position:absolute;left:30%;top:10px;
 	display: none;
 }
 
+#help{
+	color: #fff;
+	padding: 6px 12px;
+}
+
 @media   (max-width: 991px){
 	.l-left{
 		width: 100%;
