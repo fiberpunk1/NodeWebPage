@@ -1,396 +1,340 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-    <head> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
-        <link rel="stylesheet" type="text/css" href="bootstrap.css"/> 
-        <link rel="stylesheet" type="text/css" href="index.css"/> 
-        <script src="jquery.min.js"></script>         
-        <script src="bootstrap.min.js"></script>         
-    </head>     
-    <body> 
-        <nav class="navbar navbar-inverse"> 
-            <div class="container-fluid"> 
-                <div class="navbar-header"> <a href="#"> <img src="logo_03.png" alt="" sizes="4000px" width="50%"> </a> 
-                </div>                 
-                <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-9"> 
-</div>                 
-            </div>             
-        </nav>         
-        <div class="container-fluid"> 
-            <div class="row">
-                <div class="btn-group pull-left" role="group" aria-label="Basic example" style="margin-left: 15px;"> 
-                    <button type="button" class="btn btn-default" style="display: none;">Add Sentry</button>                     
-                    <button id="mbtn-findDevice" type="button" class="btn btn-default">Find Devices</button>                     
-                </div>
-            </div>
-            <div class="m-c"> 
-                <div class="l-right"> 
-                    <div class="c-si"> 
-                        <div> 
-                            <label for="hotbed-display"> 
-                                <img src="i2_03.png"> <span>Hotbed: </span> 
-                            </label>                             
-                            <p> <span id="hotbed-display">0</span><span>&deg;C</span> </p> 
-                        </div>                         
-                        <div> 
-                            <label for="hothead-display"> 
-                                <img src="i2_07.png"> <span>Hothead:</span> 
-                            </label>                             
-                            <p> <span id="hothead-display">0</span><span>&deg;C</span> </p> 
-                        </div>                         
-                        <div> 
-                            <label for="print-progess"> 
-                                <img src="i2_10.png"> <span>Progress: </span> 
-                            </label>                             
-                            <p> <span id="print-progess">0</span><span>%</span> </p> 
-                        </div>                         
-                        <div> 
-                            <label for="print-file"> 
-                                <img src="i2_12.png"> <span>Print file: </span> 
-                            </label>                             
-                            <p> <span id="print-file">no file</span> </p> 
-                        </div>                         
-                    </div>                     
-                    <div class="table-responsive"> 
-                        <div class="table-t table-t1"> 
-                            <table class="table"> 
-                                <tbody> 
-                                    <tr> 
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" title="Pause SD card print" type="button" id="btn-pause"> 
-                                                Pause
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" title="Cancel SD card print, printer will unmount SD card" type="button" id="btn-cancel"> 
-                                                Cancel
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" title="Resume SD card print job" type="button" id="btn-restart"> 
-                                                Resume
-</button>                                             
-                                        </td>                                         
-                                    </tr>                                     
-                                </tbody>                                 
-                            </table>                             
-                        </div>                         
-                        <div class="table-t table-t2"> 
-                            <table class="table"> 
-                                <tbody> 
-                                    <tr> 
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" title="Reconnect to the printer's USB, will reset the USB host" type="button" id="btn-resethost"> 
-                                                GetPrinter
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" title="Set the SD card read/write protocol of Node to SDIO. After the setting is complete, please restart the printer and Node." type="button" id="btn-setsdio"> 
-                                                SetSDIO
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" title="Set the SD card read/write protocol of Node to SPI. After the setting is complete, please restart the printer and Node." type="button" id="btn-setspi"> 
-                                                SetSPI
-</button>                                             
-                                        </td>                                         
-                                    </tr>                                     
-                                    <tr> 
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="user-1" title="User defined button"> 
-                                                User 1
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="user-2" title="User defined button"> 
-                                                User 2
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="user-3" title="User defined button"> 
-                                                User 3
-</button>                                             
-                                        </td>                                         
-                                    </tr>                                     
-                                </tbody>
-                            </table>                             
-                        </div>                         
-                    </div>                     
-                </div>                 
-                <div class="l-left"> 
-                    <div class="table-responsive"> 
-                        <table class="table"> 
-                            <thead> 
-                                <tr class="a-l"> 
-                                    <td class="active"> 
-                                        <label class="radio-inline"> 
-                                            <input type="radio" name="stepRadio" id="inlineRadio1" value="0.1"> 
-                                            0.10
-                                        </label>                                         
-                                    </td>                                     
-                                    <td class="active"> 
-                                        <label class="radio-inline"> 
-                                            <input type="radio" name="stepRadio" id="inlineRadio2" value="1.0" checked=""> 
-                                            1.00
-                                        </label>                                         
-                                    </td>                                     
-                                    <td class="active"> 
-                                        <label class="radio-inline"> 
-                                            <input type="radio" name="stepRadio" id="inlineRadio3" value="5.0"> 
-                                            5.00
-                                        </label>                                         
-                                    </td>                                     
-                                    <td class="active"> 
-                                        <label class="radio-inline"> 
-                                            <input type="radio" name="stepRadio" id="inlineRadio4" value="10.0"> 
-                                            10.0
-                                        </label>                                         
-                                    </td>                                     
-                                </tr>                                 
-                            </thead>                             
-                        </table>                         
-                        <div class="table1"> 
-                            <table class="table "> 
-                                <tbody> 
-                                    <tr> 
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="x-p"> 
-                                                X+
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="x-d"> 
-                                                X-
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="y-p"> 
-                                                Y+
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="y-d"> 
-                                                Y-
-</button>                                             
-                                        </td>                                         
-                                    </tr>                                     
-                                    <tr> 
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="z-p"> 
-                                                Z+
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="z-d"> 
-                                                Z-
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="e-p"> 
-                                                E+
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="e-d"> 
-                                                E-
-</button>                                             
-                                        </td>                                         
-                                    </tr>                                     
-                                    <tr> 
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="home"> 
-                                                Home All
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="home-x"> 
-                                                Home X
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="home-y"> 
-                                                Home Y
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="home-z">                                                 Home Z
-</button>                                             
-                                        </td>                                         
-                                    </tr>                                     
-                                </tbody>                                 
-                            </table>                             
-                        </div>                         
-                    </div>                     
-                    <form class="form-inline"> 
-                        <div class="form-group"> 
-                            <label for="temp-head">Hotend</label>                             
-                            <input type="text" class="form-control form-control1" id="temp-head" placeholder="195"> 
-                            <button type="button" class="btn btn-default" id="set-head"> 
-                                Set
-</button>                             
-                        </div>                         
-                        <div class="form-group"> 
-                            <label for="temp-bed">Hotbed</label>                             
-                            <input type="text" class="form-control form-control1" id="temp-bed" placeholder="50"> 
-                            <button type="button" class="btn btn-default" id="set-bed"> 
-                                Set
-</button>                             
-                        </div>                         
-                    </form>                     
-                    <div class="form-inline"> 
-                        <div class="form-group"> 
-                            <form method="POST" class="form form1" action="/edit" enctype="multipart/form-data"> 
-                                <button type="button" class="btn btn-default" id="choose-btn"> 
-                                    Choose File
-</button>                                 
-                                <input type="file" class="file" name="data" id="choose-file"> 
-                                <div class="file-b"> 
-                                    <div class="importBtn im" id="file_msg">Not Choose file</div>                                     
-                                </div>                                 
-                                <!-- 父级元素 -->                                 
-                                <!-- 进度条 -->                                 
-                                <div class="barline" id="probar"> 
-                                    <!-- 	<div id="percent"></div> -->                                     
-                                    <!-- <div id="line" w="100" style="width:0px;"></div>	 -->                                     
-                                    <!-- 	<div id="msg" style=""></div>		 -->                                     
-                                    <div class="jd"> 
-                                        <progress class="jd1" id="progressbar" value="0" max="100"></progress>                                         
-                                    </div>                                     
-                                </div>                                 
-                                <div class="file-b"> 
-                                    <button type="button" class="btn btn-default" id="upload-file"> <span onClick="processerbar(3000)">Upload</span> 
-                                    </button>                                     
-                                    <div class="im" style="opacity: 0;">1</div>                                     
-                                </div>                                 
-                            </form>                             
-                        </div>                         
-                    </div>                     
-                </div>                 
-            </div>             
-            <div class="m-c m-c2"> 
-                <div class="l-l"> 
-                    <div class="table-responsive"> 
-                        <table class="table"> 
-                            <tbody>
-                                <tr> 
-                                    <td class="active"> 
-                                        <button class="btn btn-default btn-block" type="button" id="update-list" title="Update gcode file list from the SD card"> 
-                                            Update Filelist
-</button>                                         
-                                    </td>                                     
-                                    <td class="active"> 
-                                        <button class="btn btn-default btn-block" type="button" id="release-sd" title="Unmount SD card from Node, and mount SD car to the printer at the same time"> 
-                                            Unmount SD
-</button>                                         
-                                    </td>                                     
-                                    <td class="active"> 
-                                        <button class="btn btn-default btn-block" type="button" id="get-sd" title="Unmount SD card from printer, and mount SD car to the Node at the same time"> 
-                                            Mount SD
-</button>                                         
-                                    </td>                                     
-                                </tr>                                 
-                            </tbody>
-                        </table>                         
-                    </div>                     
-                    <div class="table-responsive table-responsive2"> 
-                        <table class="table" id="file-list-frame"></table>                         
-                    </div>                     
-                </div>                 
-                <div class="l-l l-l2"> 
-                    <div class="table-responsive responsive2"> 
-                        <div class="table-t table-t2"> 
-                            <table class="table"> 
-                                <tbody> 
-                                    <tr> 
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="mbtn-resethost"> 
-                                                GetPrinter
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="mbtn-setsdio"> 
-                                                SetSDIO
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="mbtn-setspi"> 
-                                                SetSPI
-</button>                                             
-                                        </td>                                         
-                                    </tr>                                     
-                                    <tr> 
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="muser-1"> 
-                                                User 1
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="muser-2"> 
-                                                User 2
-</button>                                             
-                                        </td>                                         
-                                        <td class="active"> 
-                                            <button class="btn btn-default btn-block" type="button" id="muser-3"> 
-                                                User 3
-</button>                                             
-                                        </td>                                         
-                                    </tr>                                     
-                                </tbody>
-                            </table>                             
-                        </div>                         
-                    </div>                     
-                    <div class="table-responsive table-responsive2 table-responsive3"> 
-                        <label for="gcode-lineedit">Gcode</label>                         
-                        <div class="c-c"> 
-                            <input type="text" class="btn btn-default" id="gcode-lineedit" placeholder="G28"> 
-                            <button type="button" class="btn btn-default" id="btn-send-gcode"> 
-                                Send
-</button>                             
-                            <button type="button" class="btn btn-default" id="btn-send-clear" title="clean the log info displayed in the scroll windows."> 
-                                Clear
-</button>                             <a type="button" class="btn btn-default" id="btn-sel-copy" href="#" title="Copy and outpt the log info as a txt file"> 
-									  Copy </a> 
-                            <button type="button" class="btn btn-default" id="btn-auto-check" title="send M115 and auto mount SD ,unmount SD to check Node's core cunction"> 
-                                Auto Check
-</button>                             
-                        </div>                         
-                    </div>                     
-                    <div class="row"> 
-                        <form style="margin-left: 20px;"> 
-                            <label class="form-check-label pull-left">
-                                <input type="checkbox" class="form-check-input" id="easymode">&nbsp;Filter temperature information
-                            </label>                             
-                        </form>
-                        <div class=""> 
-                            <textarea class="form-control" rows="20" id="serial-console"></textarea> 
-                        </div>                         
-                    </div>                     
-                </div>                 
-            </div>
-            <div class="row"> 
-                <label class="pull-left" style="margin-left: 15px;"> <span>node-webpage-2022-12-10-1</span> 
-                </label>                 
-            </div>             
-        </div>
-        <div class="modal fade pg-show-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                    </div>
-                    <div id="myModalbody" class="modal-body">
-                        ...
-</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>         
-        <script language="javascript">
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="index.css" />
+	<script src="jquery.min.js"></script>
+	<script src="bootstrap.min.js"></script>
+</head>
+<html lang="en">
+	<body>
+		<div class="logo1">
+			<div class="container-fluid">
+				<img src="logo_03.png">
+				<br>
+				<label>
+						<span>node-webpage-2023-02-02-2009.1</span>
+				</label>
+			</div>
+		</div>
+		<ul id="myTab" class="nav nav-tabs">
+			<li class="active"><a href="#home-dashboard" data-toggle="tab">Dashboard</a></li>
+			<li ><a href="#setting" data-toggle="tab">Setting</a></li>
+			<li ><a href="#help" data-toggle="tab">Help</a></li>
+			
+		</ul>
+
+		<div id="myTabContent" class="tab-content">
+
+		<div class="tab-pane fade in active" id="home-dashboard">
+		<div class="container-fluid">
+
+			<div class="m-c">
+				<div class="l-right">
+						<div class="c-si">
+						            <div>
+						              <label for="hotbed-display">
+										  <div class="img">
+											  <img src="i2_03.png">
+										  </div>
+										  <span>Hotbed: </span>
+										 </label>
+						              <p >
+						                <span id="hotbed-display">0</span><span>&deg;C</span>
+						              </p>
+						            </div>
+						
+						            <div>
+						              <label for="hothead-display">
+										  <div class="img">
+										  	<img src="i2_07.png">
+										  </div>
+										  <span>Hothead:</span> 
+										 </label>
+						              <p >
+						                <span id="hothead-display">0</span><span>&deg;C</span>
+						              </p>
+						            </div>
+						
+						            <div>
+						              <label for="print-progess">
+									  <div class="img">
+									  	<img src="i2_10.png">
+									  </div>
+									  <span>Progress: </span> 
+									  </label>
+						              <p >
+						                <span id="print-progess">0</span><span>%</span>
+						              </p>
+						            </div>
+						
+						            <div>
+						              <label for="print-file">
+										  <div class="img">
+										  	<img src="i2_12.png">
+										  </div>
+										  <span>Print file: </span>  
+										 </label>
+						              <p >
+						                <span id="print-file">no file</span>
+						              </p>
+						            </div>
+						          </div>
+						<div class="table-responsive">
+							<div class="table-t table-t1">
+								<table class="table">
+								    <tbody>
+										<tr>
+								      <td class="active">
+								        <button class="btn btn-default btn-block" title="Pause SD card print" type="button" id="btn-pause">
+								         Pause
+								        </button>
+								      </td>
+													
+								      <td class="active">
+								        <button class="btn btn-default btn-block" title="Cancel SD card print, printer will unmount SD card" type="button" id="btn-cancel">
+								          Cancel
+								        </button>
+								      </td>
+													
+								      <td class="active">
+								        <button class="btn btn-default btn-block" title="Resume SD card print job" type="button" id="btn-restart">
+								          Resume
+								        </button>
+								      </td>
+								    </tr>
+													
+								     </tbody>
+									 </table>
+								
+							</div>
+							<div class="table-t table-t2">
+								<table class="table">
+								    <tbody>
+										
+									 <tr>
+									                  <td class="active">
+									                    <button
+									                      class="btn btn-default btn-block"
+									                      type="button"
+																				id="user-1"
+																				title="User defined button"
+									                    >
+									                      User 1
+									                    </button>
+									                  </td>
+									                  <td class="active">
+									                    <button
+									                      class="btn btn-default btn-block"
+									                      type="button"
+																				id="user-2"
+																				title="User defined button"
+									                    >
+									                      User 2
+									                    </button>
+									                  </td>
+									
+									                  <td class="active">
+									                    <button
+									                      class="btn btn-default btn-block"
+									                      type="button"
+																				id="user-3"
+																				title="User defined button"
+									                    >
+									                     User 3
+									                    </button>
+									                  </td>
+									
+									                </tr>
+								  </tbody></table>
+								
+							</div>
+						</div>
+					</div>
+				
+				<div class="l-left">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+
+								<tr class="a-l">
+									<td class="active">
+										<label class="radio-inline">
+											<input type="radio" name="stepRadio" id="inlineRadio1" value="0.1">
+											0.10
+										</label>
+									</td>
+
+									<td class="active">
+										<label class="radio-inline">
+											<input type="radio" name="stepRadio" id="inlineRadio2" value="1.0" checked="">
+											1.00
+										</label>
+									</td>
+
+									<td class="active">
+										<label class="radio-inline">
+											<input type="radio" name="stepRadio" id="inlineRadio3" value="5.0">
+											5.00
+										</label>
+									</td>
+
+									<td class="active">
+										<label class="radio-inline">
+											<input type="radio" name="stepRadio" id="inlineRadio4" value="10.0">
+											10.0
+										</label>
+									</td>
+								</tr>
+							</thead>
+						</table>
+						<div class="table1">
+							<table class="table ">
+								<tbody>
+									<tr>
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="x-p">
+												X+
+											</button>
+										</td>
+
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="x-d">
+												X-
+											</button>
+										</td>
+
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="y-p">
+												Y+
+											</button>
+										</td>
+
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="y-d">
+												Y-
+											</button>
+										</td>
+									</tr>
+
+									<tr>
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="z-p">
+												Z+
+											</button>
+										</td>
+
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="z-d">
+												Z-
+											</button>
+										</td>
+
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="e-p">
+												E+
+											</button>
+										</td>
+
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="e-d">
+												E-
+											</button>
+										</td>
+									</tr>
+
+									<tr>
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="home">
+												Home All
+											</button>
+										</td>
+
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="home-x">
+												Home X
+											</button>
+										</td>
+
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="home-y">
+												Home Y
+											</button>
+										</td>
+
+										<td class="active">
+											<button class="btn btn-default btn-block" type="button" id="home-z">
+												<span class="glyphicon glyphicon-print" aria-hidden="true"></span>Home Z
+											</button>
+										</td>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="temp-head">Hotend</label>
+							<input type="text" class="form-control form-control1" id="temp-head" placeholder="195">
+							<button type="button" class="btn btn-default" id="set-head">
+								Set
+							</button>
+						</div>
+
+
+
+						<div class="form-group">
+							<label for="temp-bed">Hotbed</label>
+							<input type="text" class="form-control form-control1" id="temp-bed" placeholder="50">
+							<button type="button" class="btn btn-default" id="set-bed">
+								Set
+							</button>
+						</div>
+					</form>
+					<div class="form-inline">
+					<div class="form-group">
+					
+						<form method="POST" class="form form1" action="/edit" enctype="multipart/form-data">
+							<button type="button" class="btn btn-default" id="choose-btn">
+									Choose File
+							</button>
+							<input type="file" class="file" name="data" id="choose-file" >
+							 <div class="file-b">
+									<div class="importBtn im" id="file_msg">Not Choose file</div>
+								</div>
+							<!-- 父级元素 -->
+							
+							<!-- 进度条 -->
+							<div class="barline" id="probar">
+								<!-- 	<div id="percent"></div> -->
+									<!-- <div id="line" w="100" style="width:0px;"></div>	 -->
+								<!-- 	<div id="msg" style=""></div>		 -->	
+									<div class="jd">
+														<progress
+															class="jd1" 
+															id="progressbar"
+															value="0"
+															max="100"
+														></progress>
+									</div>
+								</div>
+
+									
+							
+							<div class="file-b">
+								
+								<button type="button"  class="btn btn-default" id="upload-file">
+									<span onClick="processerbar(3000)">Upload</span>
+								</button>
+								<div class="im" style="opacity: 0;">1</div>
+							</div>
+
+						</form>
+					</div>
+					</div>
+				</div>
+				<script language="javascript">
 				function processerbar(time){
 					document.getElementById('probar').style.display="block";
 					
@@ -401,8 +345,8 @@
 						},time);
 					});
 				};
-				</script>         
-        <script>
+				</script>
+				<script>
 					// document.getElementById('choose-btn').onclick = () => {
 					// 	console.log("in choose file btn event");
 					//   let f = (document.getElementById('choose-file').files[0] && document.getElementById('choose-file').files[0].name)
@@ -422,7 +366,279 @@
 										alert("Not choose any file!");
 									}
 					   })
-				</script>         
-        <script src="script.js"></script>         
-    </body>     
+				</script>
+			</div>
+
+			<div class="m-c m-c2">
+				<div class="l-l">
+					<div class="table-responsive">
+					              <table class="table">
+					                <tbody><tr>
+					                  <td class="active">
+					                    <button class="btn btn-default btn-block" type="button" id="update-list" title="Update gcode file list from the SD card">
+					                      Update Filelist
+					                    </button>
+					                  </td>
+					                  <td class="active">
+					                    <button class="btn btn-default btn-block" type="button" id="release-sd" title="Unmount SD card from Node, and mount SD car to the printer at the same time">
+					                      Unmount SD
+					                    </button>
+					                  </td>
+					
+					                  <td class="active">
+					                    <button class="btn btn-default btn-block" type="button" id="get-sd" title="Unmount SD card from printer, and mount SD car to the Node at the same time">
+					                      Mount SD
+					                    </button>
+					                  </td>
+					                </tr>
+					              </tbody></table>
+					            </div>
+								<div class="table-responsive table-responsive2">
+								              <table class="table" id="file-list-frame"></table>
+								            </div>
+				</div>
+				<div class="l-l l-l2">
+					<div class="table-responsive responsive2">
+							
+							<div class="table-t table-t2">
+								<table class="table">
+								    <tbody>
+											
+								   
+									 <tr>
+									                  <td class="active">
+									                    <button
+									                      class="btn btn-default btn-block"
+									                      type="button"
+									                      id="muser-1"
+									                    >
+									                      User 1
+									                    </button>
+									                  </td>
+									                  <td class="active">
+									                    <button
+									                      class="btn btn-default btn-block"
+									                      type="button"
+									                      id="muser-2"
+									                    >
+									                      User 2
+									                    </button>
+									                  </td>
+									
+									                  <td class="active">
+									                    <button
+									                      class="btn btn-default btn-block"
+									                      type="button"
+									                      id="muser-3"
+									                    >
+									                     User 3
+									                    </button>
+									                  </td>
+									
+									                </tr>
+								  </tbody></table>
+								
+							</div>
+						               </div>
+					
+					<div class="table-responsive table-responsive2 table-responsive3">
+					            <label for="gcode-lineedit">Gcode</label>
+								<div class="c-c">
+									<input type="text" class="btn btn-default" id="gcode-lineedit" placeholder="M115">
+														
+									<button type="button" class="btn btn-default" id="btn-send-gcode">
+									  Send
+									</button>
+									<button type="button" class="btn btn-default" id="btn-send-clear" title="clean the log info displayed in the scroll windows.">
+									  Clear
+									</button>
+									      <a type="button" class="btn btn-default" id="btn-sel-copy" href="#" title="Copy and outpt the log info as a txt file">
+									  Copy
+									</a>
+									      <button type="button" class="btn btn-default" id="btn-auto-check" title="send M115 and auto mount SD ,unmount SD to check Node's core cunction">
+									  Auto Check
+									</button>
+								</div>
+					            
+								</div>
+								
+								<div class="row">
+									<form>
+											<input type="checkbox" class="form-check-input" id="easymode">
+											<label class="form-check-label">Filter temperature information</label>
+									</form>
+							</div>
+
+							  <div class="">
+								  <textarea class="form-control" rows="20" id="serial-console"></textarea>
+							  </div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+    <div class="tab-pane fade" id="setting">
+		
+
+		<div class="container-fluid">
+
+		</div>
+			<div class="m-c">
+				<div class="l-right">
+
+				</div>
+
+				<div class="l-left">
+					<div class="table-responsive">
+						<!-- <div class="table-t table-t3"> -->
+							<table class="table">
+								<tbody>
+								
+								<tr>
+									<td class="active">
+										<button class="btn btn-default btn-block"  type="button" id="btn-setsdio">
+										  SetSDIO
+										</button>
+									  </td>
+
+									  <td>
+										  <p>Set the SD card read/write protocol of Node to SDIO. After the setting is complete, please restart the printer and Node.</p>
+									  </td>
+
+								</tr>
+
+								<tr>
+									<td class="active">
+									  <button class="btn btn-default btn-block" title="" type="button" id="btn-setspi">
+										SetSPI
+									  </button>
+									</td>
+
+									<td>
+										<p>Set the SD card read/write protocol of Node to SPI. After the setting is complete, please restart the printer and Node.</p>
+									</td>
+							  </tr>
+
+							</tbody>
+								
+							<tbody>
+								<tr>
+									<td class="active">
+										<button class="btn btn-default btn-block" type="button" id="btn-with-sd">
+										  Start with SD
+										</button>
+									  </td>
+
+									  <td>
+										<p>Node will init SD card when power on, Node can read wifi config file in this mode.</p>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="active">
+										<button class="btn btn-default btn-block"  type="button" id="btn-without-sd">
+										  Start without SD
+										</button>
+									  </td>
+
+									  <td>
+										<p>Node will init without SD card when power on, at the same time Node can not read the wifi config</p>
+									</td>
+								</tr>
+									
+							</tbody>
+								
+							<tbody>
+								<tr>
+									<td class="active">
+									  <button class="btn btn-default btn-block"  type="button" id="btn-clean-eeprom">
+										Clean EEPROM
+									  </button>
+									</td>
+									<td>
+										<p>Clean all EEPROM Setting(ssid,password,device name, SPI/SDIO setting, init with SD setting...)</p>
+									</td>
+								
+								</tr>
+
+								<tr>
+									<td class="active">
+									  <button class="btn btn-default btn-block"  type="button" id="btn-resethost">
+										Reconnect Printer USB
+									  </button>
+									</td>
+									<td>
+										<p>Reconnect to the printer's USB, will reset the USB host</p>
+									</td>
+								
+								</tr>
+								
+							  </tbody>
+							</table>
+							
+						<!-- </div> -->
+					</div>
+				</div>
+			</div>
+
+		
+	</div>
+
+	<div class="tab-pane fade" id="help">
+				<h1 id="fiberpunk-support">Fiberpunk Support</h1>
+				<p>If you encounter any problems during use, please give priority to sending emails to <strong>support@fiber-punk.com</strong> for support, and we will reply within 24 hours.</p>
+				<h2 id="0-the-3d-printers-that-node-pro-can-be-adapted-to">0. The 3D printers that Node Pro can be adapted to</h2>
+				<ul>
+				<li>Ender3 v1/v2</li>
+				<li>Ender3 Pro (use GD32,need special SD plug)</li>
+				<li>Ender5,Ender5 S1, Ender7</li>
+				<li>Neptune2, Neptune 3 Pro</li>
+				<li>Kingroon KP3S(not support KP3S Pro)</li>
+				<li>Anycubic Kobra Go</li>
+				<li>Prusa Mk3S/MK3S+</li>
+				</ul>
+				<p>If your printer is not in the above list, <strong>we do not recommend using Node Pro</strong> at this time.</p>
+				<h2 id="1-tutorial">1.Tutorial</h2>
+				<ul>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1ngzFAgaMCQPFkZ9Y2IbGagGYqVl29yWNBgm9d1jq7EQ/edit?usp=sharing">Ender3(V1,V2,Pro),Neptune 2/3 Pro, Kobra Go Startup Guide</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1ArXcVsdrPOFSa5XTHX4B2m45AZbBjFXh4VR5IXPzg3Y/edit?usp=sharing">Prusa MK3S/MK3S+ Startup Guide</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1EhdrxVowPHj--iUrkvdkC4d59uzsc6_Up4gLxd3CpAw/edit?usp=sharing">Node Pro Ender Update firmware</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/16Nf5uYkNyQBRbagg_cUlCnZcxTsM7C5II71hJjXmGPo/edit?usp=sharing">Node Pro Prusa Update firmware</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1u_M_CpfMc3jDIT7n2NEloV0FDMmP1gGcKcD6jox9_I0/edit?usp=sharing">Nexus Software Tutorial</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1YU13qw0XcmEixROejami29RXmBAnxdTJXfpG-UeSqoM/edit?usp=sharing">Node webpage tutorial</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1B-qv5nDzJrXkjcet8fiF6RnIF8VCUi04P5F7qumjTcg/edit?usp=sharing">Cura setting for send gcode file to Node Pro</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1Kkhn_FVEp9Fg7joerhGwkftCRTxvpiStFqL2OvP9Z3g/edit?usp=sharing">PrusaSlicer setting for send gcode file to Node Pro</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/spreadsheets/d/1pkXoGo6gDXDX6GhRvL3V94UBKY_DR0yV2ammWk8TF3E/edit?usp=sharing">Node Pro mount STL file download</a></p>
+				</li>
+				</ul>
+				<h2 id="2-troubleshooting">2. Troubleshooting</h2>
+				<ul>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1oSb7XtlmV6yb2nJbcpJm-nnap1Ks3J4nfW2xdWwHOv0/edit?usp=sharing">Node Pro troubleshooting doc</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1xewCP0HIFvWFT30-EJq3SeMdcfBF7seOz-RSGraXJbA/edit?usp=sharing">Switch the communication protocol of the SD card</a></p>
+				</li>
+				</ul>
+				<h2 id="3-user-community">3. User Community</h2>
+				<ul>
+				<li><a  target="_blank" href="https://www.facebook.com/Fiberpunk-103588222263591">Facebook</a></li>
+				<li><a  target="_blank" href="https://discord.gg/VNNFrfhsbN">Discord</a></li>
+				<li><a  target="_blank" href="https://github.com/fiberpunk1/Beam-ESP32">Github</a></li>
+				</ul>
+
+	</div>
+
+	</div>
+
+
+
+	</body>
+	<script src="script.js"></script>
 </html>
