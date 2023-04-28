@@ -25,11 +25,11 @@ var b_printing= false;
 var str_upload_file = "";
 
 function updateUserBtn(){
-  var tt_url = '/getfmdname';
-  xmlHttp = new XMLHttpRequest();
-  xmlHttp.open('GET', tt_url);
-  xmlHttp.send();
-  console.log("test send btn");
+  // var tt_url = '/getfmdname';
+  // xmlHttp = new XMLHttpRequest();
+  // xmlHttp.open('GET', tt_url);
+  // xmlHttp.send();
+  // console.log("test send btn");
 };
 
 function formatFileSize(fileSize) {
@@ -482,7 +482,9 @@ source.addEventListener(
     }
 
     //get file name, progress and tempture
+    var reg_t_prusa = /T:([0-9]*\.[0-9]*)/g;
     var reg_t = /T:([0-9]*\.[0-9]*) *\/([0-9]*\.[0-9]*)/g;
+    var reg_b_prusa = /B:([0-9]*\.[0-9]*)/g;
     var reg_b = /B:([0-9]*\.[0-9]*) *\/([0-9]*\.[0-9]*)/g;
     var reg_p = /SD printing byte ([0-9]*)\/([0-9]*)/g;
     var reg_f = /Current file:([\S\s]*).GCO/g;
@@ -499,13 +501,26 @@ source.addEventListener(
     var reg_sd_err_volinit = /volume.init failed/g;
     var reg_sd_err_root = /openRoot failed/g;
 
-    var b_start = obj.match(reg_chip);
-    if(b_start){
-      //setTimeout for update fmd button
-      setTimeout(updateUserBtn,1000);
-    }
+    // var b_start = obj.match(reg_chip);
+    // if(b_start){
+    //   //setTimeout for update fmd button
+    //   setTimeout(updateUserBtn,1000);
+    // }
 
     var checktempture = document.getElementById('easymode').checked;
+
+    var heater = obj.match(reg_t_prusa);
+    if (heater) {
+      var header_tmp = RegExp.$1;
+      var display_header = header_tmp;
+      var header_ele = document.getElementById('hothead-display');
+      header_ele.innerHTML = display_header;
+      if(checktempture){
+        show_msg = false;
+        console.log("not show the tempture");
+        console.log(checktempture);
+      }
+    }
 
     var heater = obj.match(reg_t);
     if (heater) {
@@ -519,6 +534,19 @@ source.addEventListener(
         console.log("not show the tempture");
         console.log(checktempture);
       }
+    }
+
+    var beder = obj.match(reg_b_prusa);
+    if (beder) {
+      var beder_tmp = RegExp.$1;
+      
+      var display_bed = beder_tmp;
+      var bed_ele = document.getElementById('hotbed-display');
+      bed_ele.innerHTML = display_bed;
+      if(checktempture){
+        show_msg = false;
+      }
+        
     }
 
     var beder = obj.match(reg_b);
@@ -657,7 +685,7 @@ function getRadioValue() {
       value = radios[i].value;
     }
   }
-  return value;
+  return value.toString();;
 }
 
 function sendGcode(gcode) {
@@ -706,6 +734,8 @@ const setSDIOButton = document.getElementById('btn-setsdio');
 
 const setSDInitWithButton = document.getElementById('btn-with-sd');
 const setSDInitWithoutButton = document.getElementById('btn-without-sd');
+const cleanEEPROMButton = document.getElementById('btn-clean-eeprom');
+
 
 // const mresethostButton = document.getElementById('mbtn-resethost');
 // const msetSPIButton = document.getElementById('mbtn-setspi');
@@ -901,6 +931,14 @@ setSDInitWithoutButton.onclick = () => {
   xmlHttp.open('GET', tt_url);
   xmlHttp.send();
 };
+
+cleanEEPROMButton.onclick = () => {
+  var tt_url = '/cleaneeprom';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+};
+
 
 // mresethostButton.onclick = () => {
 //   var tt_url = '/resetusb';

@@ -13,12 +13,12 @@
 				<img src="logo_03.png">
 				<br>
 				<label>
-						<span>node-webpage-2023-02-02-2009.1</span>
+						<span>node-webpage-2023-4-20-2010.1</span>
 				</label>
 			</div>
 		</div>
 		<ul id="myTab" class="nav nav-tabs">
-			<li class="active"><a href="#home" data-toggle="tab">Dashboard</a></li>
+			<li class="active"><a href="#home-dashboard" data-toggle="tab">Dashboard</a></li>
 			<li ><a href="#setting" data-toggle="tab">Setting</a></li>
 			<li ><a href="#help" data-toggle="tab">Help</a></li>
 			
@@ -26,7 +26,7 @@
 
 		<div id="myTabContent" class="tab-content">
 
-		<div class="tab-pane fade in active" id="home">
+		<div class="tab-pane fade in active" id="home-dashboard">
 		<div class="container-fluid">
 
 			<div class="m-c">
@@ -444,7 +444,7 @@
 					<div class="table-responsive table-responsive2 table-responsive3">
 					            <label for="gcode-lineedit">Gcode</label>
 								<div class="c-c">
-									<input type="text" class="btn btn-default" id="gcode-lineedit" placeholder="G28">
+									<input type="text" class="btn btn-default" id="gcode-lineedit" placeholder="M115">
 														
 									<button type="button" class="btn btn-default" id="btn-send-gcode">
 									  Send
@@ -477,7 +477,7 @@
 		</div>
 		</div>
 
-<div class="tab-pane fade" id="setting">
+    <div class="tab-pane fade" id="setting">
 		
 
 		<div class="container-fluid">
@@ -549,6 +549,17 @@
 							</tbody>
 								
 							<tbody>
+								<tr>
+									<td class="active">
+									  <button class="btn btn-default btn-block"  type="button" id="btn-clean-eeprom">
+										Clean EEPROM
+									  </button>
+									</td>
+									<td>
+										<p>Clean all EEPROM Setting(ssid,password,device name, SPI/SDIO setting, init with SD setting...)</p>
+									</td>
+								
+								</tr>
 
 								<tr>
 									<td class="active">
@@ -574,7 +585,54 @@
 	</div>
 
 	<div class="tab-pane fade" id="help">
-		<h1>Fiberpunk Support</h1>
+				<h1 id="fiberpunk-support">Fiberpunk Support</h1>
+				<p>If you encounter any problems during use, please give priority to sending emails to <strong>support@fiber-punk.com</strong> for support, and we will reply within 24 hours.</p>
+				<h2 id="0-the-3d-printers-that-node-pro-can-be-adapted-to">0. The 3D printers that Node Pro can be adapted to</h2>
+				<ul>
+				<li>Ender3 v1/v2</li>
+				<li>Ender3 Pro (use GD32,need special SD plug)</li>
+				<li>Ender5,Ender5 S1, Ender7</li>
+				<li>Neptune2, Neptune 3 Pro</li>
+				<li>Kingroon KP3S(not support KP3S Pro)</li>
+				<li>Anycubic Kobra Go</li>
+				<li>Prusa Mk3S/MK3S+</li>
+				</ul>
+				<p>If your printer is not in the above list, <strong>we do not recommend using Node Pro</strong> at this time.</p>
+				<h2 id="1-tutorial">1.Tutorial</h2>
+				<ul>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1ngzFAgaMCQPFkZ9Y2IbGagGYqVl29yWNBgm9d1jq7EQ/edit?usp=sharing">Ender3(V1,V2,Pro),Neptune 2/3 Pro, Kobra Go Startup Guide</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1ArXcVsdrPOFSa5XTHX4B2m45AZbBjFXh4VR5IXPzg3Y/edit?usp=sharing">Prusa MK3S/MK3S+ Startup Guide</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1EhdrxVowPHj--iUrkvdkC4d59uzsc6_Up4gLxd3CpAw/edit?usp=sharing">Node Pro Ender Update firmware</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/16Nf5uYkNyQBRbagg_cUlCnZcxTsM7C5II71hJjXmGPo/edit?usp=sharing">Node Pro Prusa Update firmware</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1u_M_CpfMc3jDIT7n2NEloV0FDMmP1gGcKcD6jox9_I0/edit?usp=sharing">Nexus Software Tutorial</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1YU13qw0XcmEixROejami29RXmBAnxdTJXfpG-UeSqoM/edit?usp=sharing">Node webpage tutorial</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1B-qv5nDzJrXkjcet8fiF6RnIF8VCUi04P5F7qumjTcg/edit?usp=sharing">Cura setting for send gcode file to Node Pro</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1Kkhn_FVEp9Fg7joerhGwkftCRTxvpiStFqL2OvP9Z3g/edit?usp=sharing">PrusaSlicer setting for send gcode file to Node Pro</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/spreadsheets/d/1pkXoGo6gDXDX6GhRvL3V94UBKY_DR0yV2ammWk8TF3E/edit?usp=sharing">Node Pro mount STL file download</a></p>
+				</li>
+				</ul>
+				<h2 id="2-troubleshooting">2. Troubleshooting</h2>
+				<ul>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1oSb7XtlmV6yb2nJbcpJm-nnap1Ks3J4nfW2xdWwHOv0/edit?usp=sharing">Node Pro troubleshooting doc</a></p>
+				</li>
+				<li><p><a  target="_blank" href="https://docs.google.com/presentation/d/1xewCP0HIFvWFT30-EJq3SeMdcfBF7seOz-RSGraXJbA/edit?usp=sharing">Switch the communication protocol of the SD card</a></p>
+				</li>
+				</ul>
+				<h2 id="3-user-community">3. User Community</h2>
+				<ul>
+				<li><a  target="_blank" href="https://www.facebook.com/Fiberpunk-103588222263591">Facebook</a></li>
+				<li><a  target="_blank" href="https://discord.gg/VNNFrfhsbN">Discord</a></li>
+				<li><a  target="_blank" href="https://github.com/fiberpunk1/Beam-ESP32">Github</a></li>
+				</ul>
+
 	</div>
 
 	</div>
