@@ -25,11 +25,11 @@ var b_printing= false;
 var str_upload_file = "";
 
 function updateUserBtn(){
-  // var tt_url = '/getfmdname';
-  // xmlHttp = new XMLHttpRequest();
-  // xmlHttp.open('GET', tt_url);
-  // xmlHttp.send();
-  // console.log("test send btn");
+  var tt_url = '/getfmdname';
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('GET', tt_url);
+  xmlHttp.send();
+   console.log("test send btn");
 };
 
 function formatFileSize(fileSize) {
@@ -501,11 +501,11 @@ source.addEventListener(
     var reg_sd_err_volinit = /volume.init failed/g;
     var reg_sd_err_root = /openRoot failed/g;
 
-    // var b_start = obj.match(reg_chip);
-    // if(b_start){
-    //   //setTimeout for update fmd button
-    //   setTimeout(updateUserBtn,1000);
-    // }
+    var b_start = obj.match(reg_chip);
+    if(b_start){
+       //setTimeout for update fmd button
+       setTimeout(updateUserBtn,1000);
+    }
 
     var checktempture = document.getElementById('easymode').checked;
 
